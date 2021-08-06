@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[10 pt,letterpaper,twoside,openright]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[italian]{babel}
@@ -23,27 +23,29 @@
 
 \begin{document}
 	
+	\frontmatter
 	\maketitle
 	
+	\input{Parti/introduzione}
 	\tableofcontents
 	
-	\newpage
-	\input{Parti/introduzione}
 	
-	\newpage
+	
+	\mainmatter
+	
 	\input{Parti/parametri simulazione}
 	
-	\newpage
 	\input{Parti/porte logiche}
 	
-	\newpage
 	\input{Parti/memorie}
 	
-	\newpage
 	\input{Parti/circuiti logici}
 	
-	\newpage
-	\section{Bibliografia e sitografia}
+	\backmatter
+	
+	\chapter{Schematici}
+	
+	\chapter{Bibliografia e sitografia}
 	\printbibliography[heading=none]
 		
 \end{document}
