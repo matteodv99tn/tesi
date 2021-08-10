@@ -44,16 +44,28 @@
 	Il \textit{Process Design Kit}, spesso abbreviato dall'acronimo \textit{PDK}, è una suite di librerie e applicativi che permettono una progettazione corretta di un circuito integrato. In questi kit sono contenuti infatti tutti i modelli spice (sia dal modello lineare più semplice, sia a modelli del $4^\circ$ ordine più complessi) che possono essere utilizzati per le simulazioni, oltre che a una serie di informazioni che vincolano la progettazione per permettere di ottenere un prodotto che sia effettivamente utilizzabile nel mondo reale. Per esempio, oltre a tutte le informazioni riguardanti ingombri fisici, i PDK contengono le proprietà per simulare con maggior precisione le correnti e capacità parassite che si generano nel prodotto finito.
 	
 	\skywater, come dice il nome stesso, è dunque un PDK rilasciato pubblicamente frutto della collaborazione di Google con la fondazione Skywater; questo progetto, per come riportato dal team di sviluppo del PDK stesso, è ancora in fase sperimentale e dunque può non essere perfettamente accurato, tuttavia si osserva che lo stesso progetto deriva direttamente da PDK utilizzati da anni a livello professionale. \\
-	L'idea alla base di questo progetto open source è quella di permettere a tutte le persone di progettare e prototipare circuiti integrati, permettendo la realizzazione pratica sfruttando il processo produttivo a $130 nm$ da \texttt{FOSSi} (\textit{Free and Open Source Silicon} components) \texttt{foundation} \cite{fossi}.
+	L'idea alla base di questo progetto open source è quella di permettere a tutte le persone di progettare e prototipare circuiti integrati, permettendo la realizzazione pratica sfruttando il processo produttivo a $130 nm$ fornito da \texttt{SkyWater Technology foundry} \cite{fossi}.
 	
 	
 	Sfruttando la suite di software composta da \texttt{XSchem}, \texttt{ngspice} e \texttt{skywater PDK} è possibile realizzare degli schematici e dei circuiti che si avvicinano il più possibile a dei circuiti reali.
 	
-	\subsection*{Caratteristica statica}
+	\subsection*{Contenuti del PDK}
+		La libreria skywater mette a disposizione sostanzialmente 2 categorie di modelli spice per la simulazione:
+		\begin{itemize}
+			\item le \textit{primitive cells}, abbreviate PR, ossia i modelli associati ai mosfet (sia a 4 pin, sia a 3 pin con bulk collegato a massa), ma anche per altri componenti passivi che possono essere integrati su chip quali svariati tipi di resistenze (in funzione della potenza dissipabile), di capacità MIM (\textit{metal-insulator-metal}), diodi e diodi varicap;
+			
+			\item la \textit{digital standard cells}, abbreviate SC, sono invece già dei circuiti combinatori che sfruttano l'interconnessione delle celle primitive per realizzare porte logiche (and, or, not...) e altri circuiti combinatori (latch).
+		\end{itemize}
+		
+		Nella libreria sono presenti diverse varianti di transistori caratterizzati sia principalmente dalle differenze di tensioni ammissibili tra le coppie di terminali dei componenti (si trovano componenti che funzionano per tensioni $\Vgs,\Vds$ di valori $1.8V,\ 3.3V,\ 5.0V, \ 20V$).\\
+		La libreria delle standard cells derivanti dalle celle primitive sono divise in diverse famiglie caratterizzate dagli appellativi:
+		\begin{itemize}
+			\item \textit{high density} (HD) e \textit{high density low leakage} (HDLL), ossia porte logiche la cui caratteristica è di avere ingombri su chip più bassi (pari a $0.46\times 2.72 \mu m$) in modo da aumentare la densità di integrazione su scheda; la seconda tipologia, come si evince dal nome, è caratterizzata inoltra da una bassa dispersione di corrente elettrica. La tensione di alimentazione è posta a $1.8V$;
+			\item le celle a bassa tensione (alimentazione $<2.0V$) sono classificate in base alla velocità di commutazione dei gate secondo gli appellativi \textit{low speed} (LS), \textit{medium speed} (MS) e \textit{high speed} (HS); in questa categoria è possibile rilevare anche le celle a basso consumo di potenza (categoria \textit{low power} LP). L'ingombro su scheda di queste celle elementari è pari a $0.48\times 3.33\mu m$;
+			\item \textit{high voltage} (HVL) sono invece delle celle con tensione di alimentazione pari a $5.0V$ con ingombro su scheda di $0.48\times 4.07 \mu m$.
+		\end{itemize}
 	
-	
-	
-	
+	\url{https://skywater-pdk.readthedocs.io/en/latest/rules/device-details.html#nmos-esd-fet}
 	
 	
 	
