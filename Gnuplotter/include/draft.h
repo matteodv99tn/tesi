@@ -50,7 +50,7 @@ public:
     std::string title;
 
     float dim_x = 10;
-    float dim_y = 6.5;
+    float dim_y = 5;
 
     float x_mult = 1;
     float y_mult = 1;

@@ -167,9 +167,25 @@ void Draft::draw(){
     
     std::system("gnuplot -e 'cd \"/home/matteo/Documenti/tesi/Relazione/Immagini\"' -e \"load 'current.gp'\"");
 
+    std::ifstream in_tex_file(Draft::img_path + plot_file_name + ".tex");
+    std::vector<std::string> codes;
+    while( !in_tex_file.eof() ){
+        
+        std::getline(in_tex_file, line);
+        int pos = line.find(plot_file_name);
 
-    // std::cout << "Terminale aperto !" << std::endl;
-    // std::cin.get();
+        if(pos != std::string::npos){
+            line.insert(pos, "Immagini/");
+        }
+
+        codes.push_back(line);
+
+    }
+
+    std::ofstream out_tex_file(Draft::img_path + plot_file_name + ".tex");
+    for(int i = 0; i < codes.size(); i++)
+        out_tex_file << codes[i] << std::endl;
+
 }
 
 void Draft::save(){

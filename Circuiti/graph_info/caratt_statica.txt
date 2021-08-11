@@ -1,0 +1,15 @@
+
+10 6
+1 1000
+Tensione $V_{ds}$ $[V]$
+Corrente $I$ $[mA]$
+7
+
+
+
+
+
+
+
+caratt_statica
+caratt_statica

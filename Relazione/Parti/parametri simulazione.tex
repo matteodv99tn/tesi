@@ -57,7 +57,8 @@
 			\item la \textit{digital standard cells}, abbreviate SC, sono invece già dei circuiti combinatori che sfruttano l'interconnessione delle celle primitive per realizzare porte logiche (and, or, not...) e altri circuiti combinatori (latch).
 		\end{itemize}
 		
-		Nella libreria sono presenti diverse varianti di transistori caratterizzati sia principalmente dalle differenze di tensioni ammissibili tra le coppie di terminali dei componenti (si trovano componenti che funzionano per tensioni $\Vgs,\Vds$ di valori $1.8V,\ 3.3V,\ 5.0V, \ 20V$).\\
+		Nella libreria sono presenti diverse varianti di transistori caratterizzati sia principalmente dalle differenze di tensioni ammissibili tra le coppie di terminali dei componenti (si trovano componenti che funzionano per tensioni $\Vgs,\Vds$ di valori $1.8V,\ 3.3V,\ 5.0V, \ 20V$).  Leggendo la documentazione \cite{specsky} rilasciata dagli sviluppatori è inoltre possibile individuare i valori di lunghezza $L$ e larghezza $W$ ammissibili per la produzione di ogni tipo di mosfet.	
+		
 		La libreria delle standard cells derivanti dalle celle primitive sono divise in diverse famiglie caratterizzate dagli appellativi:
 		\begin{itemize}
 			\item \textit{high density} (HD) e \textit{high density low leakage} (HDLL), ossia porte logiche la cui caratteristica è di avere ingombri su chip più bassi (pari a $0.46\times 2.72 \mu m$) in modo da aumentare la densità di integrazione su scheda; la seconda tipologia, come si evince dal nome, è caratterizzata inoltra da una bassa dispersione di corrente elettrica. La tensione di alimentazione è posta a $1.8V$;
@@ -65,19 +66,54 @@
 			\item \textit{high voltage} (HVL) sono invece delle celle con tensione di alimentazione pari a $5.0V$ con ingombro su scheda di $0.48\times 4.07 \mu m$.
 		\end{itemize}
 	
-	\url{https://skywater-pdk.readthedocs.io/en/latest/rules/device-details.html#nmos-esd-fet}
+		\paragraph{Corner spice models} La descrizione tramite un modello matematico astratto per predire il comportamento empirico di un componente analogico non sempre risulta essere accurato per via dei parametri di influenza esterni che il calcolatore non può considerare (come correnti e capacità parassite che si instaurano inevitabilmente tra i componenti).
+		
+		Per poter effettuare delle valutazioni più pratiche dei circuiti progettati, il pdk fornisce al progettista i cosiddetti modelli spice \textit{corner} che sono tarati su particolari casi di funzionamento. In particolare, per convenzione è possibile individuare il comportamento dinamico tipico (\textit{typical} T), veloce (\textit{fast} F) e lento (\textit{slow} S).\\
+		Importando, per esempio, in una simulazione il modello corner spice FS, il simulatore considererà come comportamento di funzionamento veloce per gli n-mos (transitori più veloci), mentre per i p-mos considererà un comportamento lento (i transitori risulteranno avere costanti di tempo più elevate).
+		
+	\subsection*{Componenti utilizzati}
+		Effettuata questa premessa sui contenuti del pdk skywater, nel proseguimento del seguente documento per la progettazione e simulazione dei circuiti si utilizzeranno modelli di transistor n-mos e p-mos con tensione nominale a 1.8V, in linea con le tensioni di alimentazione utilizzate nei microprocessori nei primi anni 2000, periodo a cui è possibile far risalire il processo produttivo di skywater. 
+		
+		Facendo riferimento al processore \texttt{Intel Pentium III Tualatin}, rilasciato sul mercato nel 2001, in quanto prodotto con un processo a $130nm$, è possibile stimare l'ingombro medio di un transistor su scheda di circa $1.82 \mu m^2$: per avere un ingombro su scheda similare nel seguente documento (ove non specificato) si utilizzano transistor con dimensioni $W = 7\mu m$ e $L = 0.15\mu m$ (area di $1.05\mu m^2$).
+		
+		\begin{figure}[bht]
+			\centering
+			\includegraphics[width=3.3cm]{Immagini/nmos.eps}
+			\caption{schematico di un transistor n-mos con bulk a massa, drain posto alla tensione di alimentazione $V_{dd}$, gate posto alla tensione $V_g$ e source a massa.} \label{fig:intro:schematico-nmos}
+		\end{figure}
 	
+		Simulando il circuito in figura \ref{fig:intro:schematico-nmos} è possibile ottenere la caratteristica statica (figura \ref{fig:intro:nmos-carattstatica}) di trasferimento che determina la corrente $I_n$ che fluisce dal drain verso il source in funzione delle tensioni differenziali $V_{ds}$ e $V_{gs}$. Tramite questa si può anche determinare la tensione di soglia $\Vtn$ del transistor che è pari a circa $0.8V$.
+		
+		\begin{figure}[bht]
+			\centering
+			\input{Immagini/caratt_statica.tex}
+			\caption{caratteristica statica ottenuta mediante simulazione \texttt{dc sweep} del circuito in figura \ref{fig:intro:schematico-nmos}.}
+			\label{fig:intro:nmos-carattstatica}
+		\end{figure}
+		
 	
+		\paragraph{Caratteristiche dinamiche} Individuate le principali caratteristiche statiche, è possibile osservare dei comportamenti dinamici del circuito legati in particolare agli andamenti dei transitori.
 	
+		
+		\begin{figure}[bht]
+			\centering
+			\includegraphics[width=5cm]{Immagini/circuito_transitorio.eps}
+			\caption{circuito per simulare la scarica di un condensatore $C_1$ di capacità $1nF$, posto inizialmente ad una tensione $V_{out} = 1.8V$, mediante l'utilizzo di transistor n-mos.} \label{fig:intro:schematico-transitorio}
+		\end{figure}
 	
+		Il circuito più semplice da considerare a tale fine è quello riportato in figura \ref{fig:intro:schematico-transitorio} che si basa sullo scaricare una capacità di $1nF$ mediante l'utilizzo di transistori n-mos. In questo caso si pone al massimo la tensione $\Vgs = 1.8V$ e si effettua una simulazione sul transitorio. Posto che al tempo iniziale la tensione in uscita $\Vout$ fosse pari allo stato alto $1.8V$, utilizzando i diversi modelli corner spice forniti è possibile effettuare dei diagrammi di rappresentazione dei transitori.
 	
+		\begin{figure}[bht]
+			\centering
+			\input{Immagini/transitori.tex}
+			\caption{evoluzione della tensione in uscita $V_{out}$ dovuta alla scarica della capacità mediante un mosfet (circuito in figura \ref{fig:intro:schematico-transitorio}).}
+			\label{fig:intro:nmos-tempitransitorio}
+		\end{figure}
 	
-	
-	
-	
-	
-	
-	
+		Facendo riferimenti ai risultati in figura \ref{fig:intro:nmos-tempitransitorio}, è possibile osservare che modelli corner diversi, rispetto al nome loro assegnato, producono dei risultati distinti. Ipotizzando di concludere il transitorio al $90\%$ di escursione del segnale, ossia quando la tensione in uscita raggiunge il valore $V_{out} = 0.18V$, si ottengono i tempi per i 3 modelli pari a:
+		\[ t_{slow} \approx 584 ns \qquad t_{typical} \approx 516 ns \qquad t_{fast} \approx 467ns    \] 
+		Ove non diversamente specificato nella prosecuzione del documento tutti comportamenti transitori verranno valutati rispetto ad un comportamento tipico dei transistor.
+		
 	
 	
 	

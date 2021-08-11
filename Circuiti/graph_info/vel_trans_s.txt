@@ -1,0 +1,9 @@
+
+10 5
+1e+06 1
+Tempo $[\\mu s]$
+Tens $V_{out}$ $[V]$
+1
+
+vel_trans_s
+vel_trans_s
