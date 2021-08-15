@@ -74,7 +74,7 @@
 	\subsection*{Componenti utilizzati}
 		Effettuata questa premessa sui contenuti del pdk skywater, nel proseguimento del seguente documento per la progettazione e simulazione dei circuiti si utilizzeranno modelli di transistor n-mos e p-mos con tensione nominale a 1.8V, in linea con le tensioni di alimentazione utilizzate nei microprocessori nei primi anni 2000, periodo a cui è possibile far risalire il processo produttivo di skywater. 
 		
-		Facendo riferimento al processore \texttt{Intel Pentium III Tualatin}, rilasciato sul mercato nel 2001, in quanto prodotto con un processo a $130nm$, è possibile stimare l'ingombro medio di un transistor su scheda di circa $1.82 \mu m^2$: tramite una ricerca per approssimazioni successive è dunque possibile calcolare le dimensioni $W/L$.
+		Facendo riferimento al processore \texttt{Intel Pentium III Tualatin}, rilasciato sul mercato nel 2001, in quanto prodotto con un processo a $130nm$, è possibile stimare l'ingombro medio di un transistor su scheda di circa $1.82 \mu m^2$: tramite una ricerca per approssimazioni successive si determinano le dimensioni $W/L = 1/0.15 \mu m/\mu m$ per gli n-mos, mentre per i p-mos $W/L = 4.8/0.15 \mu m/\mu m$. Con tali dimensioni dei mosfet, l'ingombro medio di una coppia di transistor è pari a $2.61 \mu m^2$.
 		
 		\begin{figure}[bht]
 			\centering
@@ -101,7 +101,7 @@
 			\caption{circuito per simulare la scarica di un condensatore $C_1$ di capacità $1nF$, posto inizialmente ad una tensione $V_{out} = 1.8V$, mediante l'utilizzo di transistor n-mos.} \label{fig:intro:schematico-transitorio}
 		\end{figure}
 	
-		Il circuito più semplice da considerare a tale fine è quello riportato in figura \ref{fig:intro:schematico-transitorio} che si basa sullo scaricare una capacità di $1nF$ mediante l'utilizzo di transistori n-mos. In questo caso si pone al massimo la tensione $\Vgs = 1.8V$ e si effettua una simulazione sul transitorio. Posto che al tempo iniziale la tensione in uscita $\Vout$ fosse pari allo stato alto $1.8V$, utilizzando i diversi modelli corner spice forniti è possibile effettuare dei diagrammi di rappresentazione dei transitori.
+		Il circuito più semplice da considerare a tale fine è quello riportato in figura \ref{fig:intro:schematico-transitorio} che si basa sullo scaricare una capacità di $100fF$ mediante l'utilizzo di transistori n-mos. In questo caso si pone al massimo la tensione $\Vgs = 1.8V$ e si effettua una simulazione sul transitorio. Posto che al tempo iniziale la tensione in uscita $\Vout$ fosse pari allo stato alto $1.8V$, utilizzando i diversi modelli corner spice forniti è possibile effettuare dei diagrammi di rappresentazione dei transitori.
 	
 		\begin{figure}[bht]
 			\centering
@@ -111,7 +111,7 @@
 		\end{figure}
 	
 		Facendo riferimenti ai risultati in figura \ref{fig:intro:nmos-tempitransitorio}, è possibile osservare che modelli corner diversi, rispetto al nome loro assegnato, producono dei risultati distinti. Ipotizzando di concludere il transitorio al $90\%$ di escursione del segnale, ossia quando la tensione in uscita raggiunge il valore $V_{out} = 0.18V$, si ottengono i tempi per i 3 modelli pari a:
-		\[ t_{slow} \approx 584 ns \qquad t_{typical} \approx 516 ns \qquad t_{fast} \approx 467ns    \] 
+		\[ t_{slow} \approx 932ps \qquad t_{typical} \approx 812 ps \qquad t_{fast} \approx 722 ps    \] 
 		Ove non diversamente specificato nella prosecuzione del documento tutti comportamenti transitori verranno valutati rispetto ad un comportamento tipico dei transistor.
 		
 	

@@ -1,10 +1,9 @@
 
-10 5
+10 3.5
 1e+09 1
 tempo $[ns]$
 $V_{out}$ $[V]$
-2
+1
 $V_{out}$ $[V]$
-$V_{in}$ $[V]$
-not-dinamica
-not-dinamica
+nor-dinamica-corr
+nor-dinamica-corr

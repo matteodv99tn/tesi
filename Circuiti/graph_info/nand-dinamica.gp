@@ -60,4 +60,3 @@ unset multiplot
 
 
 set output
-

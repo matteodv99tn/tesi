@@ -9,9 +9,7 @@ N 230 -220 250 -220 { lab=Vin}
 N 230 -320 230 -220 { lab=Vin}
 N 230 -320 250 -320 { lab=Vin}
 N 210 -270 230 -270 { lab=Vin}
-N 410 -270 410 -250 { lab=Vout}
 N 290 -270 320 -270 { lab=Vout}
-N 380 -270 450 -270 { lab=Vout}
 N 320 -270 380 -270 { lab=Vout}
 C {code.sym} -10 -110 0 0 {name=Libreries and models
 only_toplevel=true
@@ -44,9 +42,9 @@ spiceprefix=X
 C {code_shown.sym} 460 -110 0 0 {name=NGSPICE
 only_toplevel=true
 value=".control
-tran 0.01n 12n
-plot vin vout+2
-wrdata output.txt vin vout
+dc v2 0 1.8 0.01
+plot vout vs vin
+wrdata output.txt vout vs vin
 .endc
 " }
 C {vdd.sym} 160 -80 0 0 {name=l4 lab=Vdd}
@@ -69,14 +67,8 @@ model=pfet_01v8
 spiceprefix=X
 }
 C {gnd.sym} 290 -190 0 0 {name=l2 lab=GND}
-C {vsource.sym} 240 -50 0 0 {name=V2 value="pulse 0 1.8 2n 0.01p  0.01p 4n 8n"}
+C {vsource.sym} 240 -50 0 0 {name=V2 value="pulse 0 1.8 500p 0.01p  0.01p 1n 2n"}
 C {gnd.sym} 240 -20 0 0 {name=l5 lab=GND}
 C {ipin.sym} 210 -270 0 0 {name=p1 lab=Vin}
-C {opin.sym} 450 -270 0 0 {name=p2 lab=Vout}
+C {opin.sym} 380 -270 0 0 {name=p2 lab=Vout}
 C {lab_pin.sym} 240 -80 1 0 {name=l6 sig_type=std_logic lab=Vin}
-C {capa.sym} 410 -220 0 0 {name=C1
-m=1
-value=100f
-footprint=1206
-device="ceramic capacitor"}
-C {gnd.sym} 410 -190 0 0 {name=l7 lab=GND}

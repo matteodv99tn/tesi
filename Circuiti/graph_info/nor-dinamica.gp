@@ -10,7 +10,6 @@ set style line 14 lc rgb "#004C99" lw 3
 set style line 15 lc rgb "#004C99" lw 3 
 
 set grid lc rgb "#C0C0C0" lt 2 dt 2 lw 1
-set xtics 1.5
 
 set tmargin 1
 set bmargin 1
@@ -23,13 +22,13 @@ set xtics format ''
 set ytics 0,0.6,1.8
 
 set ylabel '$V_{out}$ $[V]$'
-plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nand-dinamica.dat' using 1:2 with lines ls 10 notitle
+plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nor-dinamica.dat' using 1:2 with lines ls 10 notitle
 set ylabel '$V_{in,1}$ $[V]$'
-plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nand-dinamica.dat' using 1:3 with lines ls 11 notitle
+plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nor-dinamica.dat' using 1:3 with lines ls 11 notitle
 set xtics format "%g"
 set xlabel 'tempo $[ns]$'
 set ylabel '$V_{in,2}$ $[V]$'
-plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nand-dinamica.dat' using 1:4 with lines ls 12 notitle
+plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nor-dinamica.dat' using 1:4 with lines ls 12 notitle
 unset multiplot
 
 
@@ -37,7 +36,7 @@ unset multiplot
 pause mouse
 
 set terminal epslatex size 10cm,7cm 
-set output 'nand-dinamica.tex'
+set output 'nor-dinamica.tex'
 set tmargin 1
 set bmargin 1
 set lmargin 2
@@ -49,15 +48,14 @@ set xtics format ''
 set ytics 0,0.6,1.8
 
 set ylabel '$V_{out}$ $[V]$'
-plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nand-dinamica.dat' using 1:2 with lines ls 10 notitle
+plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nor-dinamica.dat' using 1:2 with lines ls 10 notitle
 set ylabel '$V_{in,1}$ $[V]$'
-plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nand-dinamica.dat' using 1:3 with lines ls 11 notitle
+plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nor-dinamica.dat' using 1:3 with lines ls 11 notitle
 set xtics format "%g"
 set xlabel 'tempo $[ns]$'
 set ylabel '$V_{in,2}$ $[V]$'
-plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nand-dinamica.dat' using 1:4 with lines ls 12 notitle
+plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/nor-dinamica.dat' using 1:4 with lines ls 12 notitle
 unset multiplot
 
 
 set output
-
