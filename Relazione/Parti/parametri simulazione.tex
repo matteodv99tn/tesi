@@ -74,7 +74,7 @@
 	\subsection*{Componenti utilizzati}
 		Effettuata questa premessa sui contenuti del pdk skywater, nel proseguimento del seguente documento per la progettazione e simulazione dei circuiti si utilizzeranno modelli di transistor n-mos e p-mos con tensione nominale a 1.8V, in linea con le tensioni di alimentazione utilizzate nei microprocessori nei primi anni 2000, periodo a cui è possibile far risalire il processo produttivo di skywater. 
 		
-		Facendo riferimento al processore \texttt{Intel Pentium III Tualatin}, rilasciato sul mercato nel 2001, in quanto prodotto con un processo a $130nm$, è possibile stimare l'ingombro medio di un transistor su scheda di circa $1.82 \mu m^2$: per avere un ingombro su scheda similare nel seguente documento (ove non specificato) si utilizzano transistor con dimensioni $W = 7\mu m$ e $L = 0.15\mu m$ (area di $1.05\mu m^2$).
+		Facendo riferimento al processore \texttt{Intel Pentium III Tualatin}, rilasciato sul mercato nel 2001, in quanto prodotto con un processo a $130nm$, è possibile stimare l'ingombro medio di un transistor su scheda di circa $1.82 \mu m^2$: tramite una ricerca per approssimazioni successive è dunque possibile calcolare le dimensioni $W/L$.
 		
 		\begin{figure}[bht]
 			\centering
@@ -82,9 +82,9 @@
 			\caption{schematico di un transistor n-mos con bulk a massa, drain posto alla tensione di alimentazione $V_{dd}$, gate posto alla tensione $V_g$ e source a massa.} \label{fig:intro:schematico-nmos}
 		\end{figure}
 	
-		Simulando il circuito in figura \ref{fig:intro:schematico-nmos} è possibile ottenere la caratteristica statica (figura \ref{fig:intro:nmos-carattstatica}) di trasferimento che determina la corrente $I_n$ che fluisce dal drain verso il source in funzione delle tensioni differenziali $V_{ds}$ e $V_{gs}$. Tramite questa si può anche determinare la tensione di soglia $\Vtn$ del transistor che è pari a circa $0.8V$.
+		Simulando il circuito in figura \ref{fig:intro:schematico-nmos} è possibile ottenere la caratteristica statica (figura \ref{fig:intro:nmos-carattstatica}) di trasferimento che determina la corrente $I_n$ che fluisce dal drain verso il source in funzione delle tensioni differenziali $V_{ds}$ e $V_{gs}$. Tramite questa si può anche determinare la tensione di soglia $\Vtn$ del transistor che è pari a circa $0.6V$.
 		
-		\begin{figure}[bht]
+		\begin{figure}[h!]
 			\centering
 			\input{Immagini/caratt_statica.tex}
 			\caption{caratteristica statica ottenuta mediante simulazione \texttt{dc sweep} del circuito in figura \ref{fig:intro:schematico-nmos}.}
@@ -114,10 +114,6 @@
 		\[ t_{slow} \approx 584 ns \qquad t_{typical} \approx 516 ns \qquad t_{fast} \approx 467ns    \] 
 		Ove non diversamente specificato nella prosecuzione del documento tutti comportamenti transitori verranno valutati rispetto ad un comportamento tipico dei transistor.
 		
-	
-	
-	
-	
 	
 	
 	

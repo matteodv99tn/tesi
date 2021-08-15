@@ -18,8 +18,8 @@ value="
 
 "}
 C {xscheme_sky130/sky130_fd_pr/nfet3_01v8.sym} 470 -110 0 0 {name=M1
-L=0.15
-W=7
+L=0.45
+W=1
 body=GND
 nf=1
 mult=1

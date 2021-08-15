@@ -99,12 +99,45 @@ void Draft::save_data(const std::string& file_name) {
 
 }
 
+std::string Draft::multiplot_data(){
+
+    std::ostringstream out;
+
+    out << "set tmargin 1" << std::endl;
+    out << "set bmargin 1" << std::endl;
+    out << "set lmargin 2" << std::endl;
+    out << "set rmargin 2" << std::endl;
+
+    out << "set multiplot layout " << graph_labels.size() << ", 1 margins 0.1,0.95,.15,.99 spacing 0,0" << std::endl;
+    
+    out << "set yrange [-0.2:2]" << std::endl;
+    out << "set xlabel ''" << std::endl;
+    out << "set xtics format ''" << std::endl;
+    out << "set ytics 0,0.6,1.8" << std::endl << std::endl;
+    
+    for(int i = 0; i < graph_labels.size(); i++){
+        if(i == graph_labels.size()-1){
+
+            out << "set xtics format \"%g\"" << std::endl;
+            out << "set xlabel '" << x_label << "'" << std::endl;
+        }
+        out << "set ylabel '" << graph_labels[i] << "'" << std::endl;
+        out << "plot '" << Draft::dat_path << data_file_name << ".dat' using 1:"  << i+2 << " with lines ls " << 10 + i << " notitle" << std::endl;
+
+    }
+
+    out << "unset multiplot" << std::endl << std::endl;
+
+    return out.str();
+}
+
 void Draft::setup_plot(){
 
     save_data(plot_file_name);
 
     std::ofstream out( Draft::stp_path + plot_file_name + ".gp" );
 
+    out << "reset" << std::endl;
     out << "set terminal qt" << std::endl << std::endl;
 
     out << "set style line 1 lc rgb \"#004C99\" lw 5 " << std::endl;
@@ -116,11 +149,28 @@ void Draft::setup_plot(){
     out << "set style line 15 lc rgb \"#004C99\" lw 3 " << std::endl;
     out << std::endl;
 
+    out << "set grid lc rgb \"#C0C0C0\" lt 2 dt 2 lw 1" << std::endl;
+
+    for(int i = 0; i < other_cmds.size(); i++)
+        out << other_cmds[i] << std::endl;
+        
+    out << std::endl;
+
+    if(multiplot == true){
+        out << multiplot_data() << std::endl;
+
+        out << std::endl << "pause mouse" << std::endl << std::endl;
+        out << "set terminal epslatex size " << dim_x << "cm," << dim_y << "cm " << std::endl;
+        out << "set output '" << plot_file_name << ".tex'" << std::endl;
+        out << multiplot_data() << std::endl;
+        out << "set output" << std::endl;
+        return;
+    }
+    
     out << "set title \"" << title << "\"" << std::endl;
     out << "set xlabel \"" << x_label << "\"" << std::endl;
     out << "set ylabel \"" << y_label << "\"" << std::endl;
-    out << "set grid lc rgb \"#C0C0C0\" lt 2 dt 2 lw 1" << std::endl;
-    out << std::endl;
+
 
     if(y_values.size() == 1){
 

@@ -8,6 +8,7 @@
 
 class Data{
 
+
 public:
 
     // Static variables
@@ -33,6 +34,9 @@ public:
 
 class Draft{
 
+private:
+    std::string multiplot_data();
+    
 public:
 
     // Static variables
@@ -55,9 +59,13 @@ public:
     float x_mult = 1;
     float y_mult = 1;
 
+    bool multiplot = false;
+
     std::vector<float> x_values;
     std::vector< std::vector<float> > y_values;
     std::vector<std::string> graph_labels;
+
+    std::vector<std::string> other_cmds;
 
     std::string x_label;
     std::string y_label;

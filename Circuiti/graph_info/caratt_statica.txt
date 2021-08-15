@@ -1,10 +1,10 @@
 
-10 6
-1 1000
-Tensione $V_{ds}$ $[V]$
-Corrente $I$ $[mA]$
+12 10
+1 1e+06
+$V_{ds}$ $[ns]$
+$I_n$ $[\\mu A]$
 7
-
+$V_{out}$ $[V]$
 
 
 

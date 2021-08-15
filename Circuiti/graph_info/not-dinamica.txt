@@ -1,11 +1,10 @@
 
-12 10
+10 6
 1e+09 1
 tempo $[ns]$
 $V_{out}$ $[V]$
-3
+2
 $V_{out}$ $[V]$
-$V_{a}$ $[V]$
-$V_{b}$ $[V]$
-test
-test
+$V_{in}$ $[V]$
+not-dinamica
+not-dinamica

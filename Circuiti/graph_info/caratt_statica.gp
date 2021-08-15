@@ -1,3 +1,4 @@
+reset
 set terminal qt
 
 set style line 1 lc rgb "#004C99" lw 5 
@@ -8,16 +9,16 @@ set style line 13 lc rgb "#004C99" lw 3
 set style line 14 lc rgb "#004C99" lw 3 
 set style line 15 lc rgb "#004C99" lw 3 
 
-set title ""
-set xlabel "Tensione $V_{ds}$ $[V]$"
-set ylabel "Corrente $I$ $[mA]$"
 set grid lc rgb "#C0C0C0" lt 2 dt 2 lw 1
 
-plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:2 with lines ls 10 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:3 with lines ls 11 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:4 with lines ls 12 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:5 with lines ls 13 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:6 with lines ls 14 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:7 with lines ls 15 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:8 with lines ls 16 title ''
+set title ""
+set xlabel "$V_{ds}$ $[ns]$"
+set ylabel "$I_n$ $[\\mu A]$"
+plot '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:2 with lines ls 10 title '$V_{out}$ $[V]$', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:3 with lines ls 11 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:4 with lines ls 12 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:5 with lines ls 13 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:6 with lines ls 14 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:7 with lines ls 15 title '', '/home/matteo/Documenti/tesi/Circuiti/dat_files/caratt_statica.dat' using 1:8 with lines ls 16 title ''
 
 pause mouse
 
-set terminal epslatex size 10cm,6cm 
+set terminal epslatex size 12cm,10cm 
 set output 'caratt_statica.tex'
 replot
 set output
