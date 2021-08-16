@@ -1,0 +1,12 @@
+
+10 9
+1e+09 1
+tempo $[ns]$
+$V_{out}$ $[V]$
+4
+$V_{out,and}$ $[V]$
+$V_{out,or}$ $[V]$
+$V_{in,1}$ $[V]$
+$V_{in,2}$ $[V]$
+and-or-dinamica
+and-or-dinamica

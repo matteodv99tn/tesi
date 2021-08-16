@@ -188,3 +188,53 @@
 	A questo punto è possibile misurare il tempo di commutazione dell'uscita nel passaggio da tensione alta a bassa (misurata al $95\%$ dell'escursione del segnale), che si attesta al valore di $832ps$, mentre il passaggio del segnale da basso ad alto dura $1037ps$.
 	
 \section{And \& or gate}
+	Avendo studiato singolarmente i gate nand, nor e not, la costruzione dei gate logici \textit{and} e \textit{or} deriva direttamente tramite la connessione in sequenza della rispettiva porta negata con l'invertitore logico. In particolare le tabelle di verità che i due componenti devono realizzare sono:
+	
+	\begin{center}
+		\begin{tabular}{c c | c | c}
+			$V_{in,1}$ & $V_{in,2}$ & $V_{out,and}$ & $V_{out,or}$ \\ \hline
+			0 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 1 \\
+			1 & 0 & 0 & 1 \\
+			1 & 1 & 1 & 1 \\
+		\end{tabular}
+	\end{center}
+
+	\begin{figure}[bht]
+		\centering
+		\begin{subfigure}{0.48\linewidth}
+			\centering \includegraphics[width=4cm]{Immagini/and-simple} \caption{}
+		\end{subfigure}
+		\begin{subfigure}{0.48\linewidth}
+			\centering \includegraphics[width=4cm]{Immagini/or-simple} \caption{}
+		\end{subfigure}
+		\caption{rappresentazione schematica (sopra) e blocchi elementari che costituiscono (sotto) i gate logici and (a) e or (b).}
+		\label{fig:andor:simbolo}
+	\end{figure}
+	
+	In figura \ref{fig:andor:simbolo} si osserva la rappresentazione semplificata delle porte logiche che espandendone le implementazioni in tecnologia c-mos determinano gli schematici riportati in figura \ref{fig:andor:schematico}.
+	
+	\begin{figure}[bht]
+	\centering
+	\begin{subfigure}{0.48\linewidth}
+		\centering \includegraphics[width=0.9\linewidth]{Immagini/and-gate} \caption{}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+		\centering \includegraphics[width=0.9\linewidth]{Immagini/or-gate} \caption{}
+	\end{subfigure}
+	\caption{implementazione in tecnlogia c-mos della porta logica and (a) e or (b).}
+	\label{fig:andor:schematico}
+	\end{figure}
+
+	E' inoltre possibile procedere con le simulazioni dei transitori (con una capacità di carico di $100 fF$) che determinano gli andamenti temporali mostrati in figura \ref{fig:andor:dinamica}. Analizzando i tempi di propagazione dei segnali all'interno dei circuiti si arriva a dei tempi massimi per i due circuiti che si attestano ai valori
+	\[ \tau_{max,and} \approx 1202 ps \qquad \tau_{max,or} \approx 1150ps  \]
+
+
+	\begin{figure}[bht]
+		\centering
+		\input{Immagini/and-or-dinamica}
+		\caption{risposta dei gate and e or a ingressi di onde quadre a periodi multipli. Come nel caso dell'invertitore (fig. \ref{fig:not:dinamica-schema}) il circuito a valle della porta logica è modellato da una capacità di carico di $100fF$.}
+		\label{fig:andor:dinamica}
+	\end{figure}
+
+\textbf{MAGARI FARE DELLE CONSIDERAZIONI SULLE PRESTAZIONI, COME LA MASSIMA FREQUENZA DI COMMUTAZIONE}
