@@ -5,10 +5,10 @@ V {}
 S {}
 E {}
 N 90 -20 90 20 { lab=Y}
-N 30 50 50 50 { lab=Vin}
-N 30 -50 30 50 { lab=Vin}
-N 30 -50 50 -50 { lab=Vin}
-N 10 0 30 0 { lab=Vin}
+N 30 50 50 50 { lab=A}
+N 30 -50 30 50 { lab=A}
+N 30 -50 50 -50 { lab=A}
+N 10 0 30 0 { lab=A}
 N 90 0 120 0 { lab=Y}
 N 120 0 180 0 { lab=Y}
 C {xscheme_sky130/sky130_fd_pr/nfet3_01v8.sym} 70 50 0 0 {name=M1
