@@ -1,0 +1,13 @@
+
+10 8
+1e+06 1
+tempo $[\\mu s]$
+$V_{out}$ $[V]$
+5
+$B_4$
+$B_3$
+$B_2$
+$B_1$
+$CLK$
+count-mult
+count-mult

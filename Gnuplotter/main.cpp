@@ -15,9 +15,10 @@ int main() {
     std::string str;
 
     Draft fig;
+    fig.dim_y = 12;
+    fig.dim_x = 12;
 
     fig.multiplot = true;
-    fig.dim_y = 7;
     fig.title = "";
 
     fig.x_label = "tempo $[ns]$";
@@ -26,19 +27,25 @@ int main() {
     fig.x_mult = 1e9;
     fig.y_mult = 1;
 
-    fig.other_cmds.push_back("set xtics 1.5");
 
     fig.set_x(0);
+    fig.add_y(13);
+    fig.add_y(11);
+    fig.add_y(9);
+    fig.add_y(7);
     fig.add_y(5);
-    fig.add_y(1);
     fig.add_y(3);
+    fig.add_y(1);
 
-    fig.graph_labels[0] = "$V_{out}$ $[V]$";
-    fig.graph_labels[1] = "$V_{in,1}$ $[V]$";
-    fig.graph_labels[2] = "$V_{in,2}$ $[V]$";
-
-    fig.plot_file_name = "nand-dinamica";
-    fig.data_file_name = "nand-dinamica";
+    fig.graph_labels[0] = "$R_7$";
+    fig.graph_labels[1] = "$R_6$";
+    fig.graph_labels[2] = "$R_5$";
+    fig.graph_labels[3] = "$R_4$";
+    fig.graph_labels[4] = "$R_3$";
+    fig.graph_labels[5] = "$R_2$";
+    fig.graph_labels[6] = "$R_1$";
+    fig.plot_file_name = "mult-sim";
+    fig.data_file_name = "mult-sim";
 
     fig.setup_plot();
     fig.draw();

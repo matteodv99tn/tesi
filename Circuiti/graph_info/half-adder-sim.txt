@@ -1,0 +1,12 @@
+
+10 7
+1e+09 1
+tempo $[ns]$
+$V_{out}$ $[V]$
+4
+$C$
+$R$
+$A$
+$B$
+half-adder-sim
+half-adder-sim

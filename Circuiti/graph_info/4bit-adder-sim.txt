@@ -1,0 +1,13 @@
+
+10 7
+1e+09 1
+tempo $[ns]$
+$V_{out}$ $[V]$
+5
+$C_{out}$
+$R_4$
+$R_3$
+$R_2$
+$R_1$
+4bit-adder-sim
+4bit-adder-sim

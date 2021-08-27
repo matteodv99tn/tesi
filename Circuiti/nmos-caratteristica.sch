@@ -37,7 +37,7 @@ C {code_shown.sym} 0 -280 0 0 {name=NGSPICE
 only_toplevel=true
 value="
 .control
-dc v1 0 1.8 0.01 v2 0 1.8 0.3
+dc v1 0 1.8 0.01 v2 0 1.8 0.6
 plot i(v3) vs vdd
 wrdata output.txt vdd vs i(v3)
 .endc

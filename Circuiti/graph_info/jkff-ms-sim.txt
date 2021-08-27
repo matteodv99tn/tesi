@@ -1,0 +1,12 @@
+
+10 6
+1e+09 1
+tempo $[ns]$
+$V_{out}$ $[V]$
+4
+$Q$
+$CLK$
+$S$
+$R$
+jkff-ms-sim
+jkff-ms-sim

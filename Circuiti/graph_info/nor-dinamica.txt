@@ -1,11 +1,11 @@
 
-10 7
+10 5.5
 1e+09 1
 tempo $[ns]$
 $V_{out}$ $[V]$
 3
-$V_{out}$ $[V]$
-$V_{in,1}$ $[V]$
-$V_{in,2}$ $[V]$
+$V_{out}$
+$V_{in,1}$
+$V_{in,2}$
 nor-dinamica
 nor-dinamica

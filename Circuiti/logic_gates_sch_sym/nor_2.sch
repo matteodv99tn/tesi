@@ -14,8 +14,6 @@ N 380 -340 380 -320 { lab=GND}
 N 300 -320 300 -300 { lab=GND}
 N 300 -480 300 -440 { lab=Y}
 N 300 -460 400 -460 { lab=Y}
-N 430 -460 460 -460 { lab=Y}
-N 400 -460 430 -460 { lab=Y}
 N 95 -440 140 -440 { lab=B}
 N 140 -440 140 -370 { lab=B}
 N 140 -370 180 -370 { lab=B}
@@ -60,7 +58,7 @@ model=pfet_01v8
 spiceprefix=X
 }
 C {gnd.sym} 300 -300 0 0 {name=l2 lab=GND}
-C {opin.sym} 460 -460 0 0 {name=p2 lab=Y}
+C {opin.sym} 400 -460 0 0 {name=p2 lab=Y}
 C {xscheme_sky130/sky130_fd_pr/pfet3_01v8.sym} 280 -570 0 0 {name=M4
 L=0.15
 W=4.8

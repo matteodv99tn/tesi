@@ -5,7 +5,7 @@ set style line 1 lc rgb "#004C99" lw 5
 set style line 10 lc rgb "#004C99" lw 3 
 set style line 11 lc rgb "#FF8000" lw 3 
 set style line 12 lc rgb "#009900" lw 3 
-set style line 13 lc rgb "#004C99" lw 3 
+set style line 13 lc rgb "#CC00CC" lw 3 
 set style line 14 lc rgb "#004C99" lw 3 
 set style line 15 lc rgb "#004C99" lw 3 
 

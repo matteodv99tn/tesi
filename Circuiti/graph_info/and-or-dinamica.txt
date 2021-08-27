@@ -1,12 +1,12 @@
 
-10 9
+10 7
 1e+09 1
 tempo $[ns]$
 $V_{out}$ $[V]$
 4
-$V_{out,and}$ $[V]$
-$V_{out,or}$ $[V]$
-$V_{in,1}$ $[V]$
-$V_{in,2}$ $[V]$
+$V_{out,and}$
+$V_{out,or}$
+$V_{in,1}$
+$V_{in,2}$
 and-or-dinamica
 and-or-dinamica

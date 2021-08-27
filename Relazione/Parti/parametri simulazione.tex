@@ -1,10 +1,10 @@
 \chapter{Introduzione all'approccio SPICE}
 	
-	A livello accademico è stato descritto il principio di funzionamento dei \textit{MOSFET}, ossia dei transistor che utilizzano l'effetto di carico che si instaura tra uno substrato semiconduttivo e un metallo ossidato per movimentare delle cariche elettriche. In base al drogaggio dei terminali di \textit{source} e \textit{drain}, complementare a quello di \textit{bulk}, è possibile suddividere i transitori in due famiglie: gli \textit{n-MOS} (drogaggio di tipo $n$) e i \textit{p-MOS} (drogaggio di tipo $p$). In particolare la relazione statica che lega la corrente che scorre tra i terminali di drain e source è funzione sia della differenza di tensione $V_{gs}$ tra \textit{gate} e source, ma anche alla differenza di tensione $\Vds$ tra drain e source:
+	A livello accademico è stato descritto il principio di funzionamento dei \textit{MOSFET}, ossia dei transistor che utilizzano l'effetto di campo che si instaura tra uno substrato semiconduttivo e un metallo ossidato per movimentare delle cariche elettriche. In base al drogaggio dei terminali di \textit{source} e \textit{drain}, complementare a quello di \textit{bulk}, è possibile suddividere i transistori in due famiglie: gli \textit{n-MOS} (drogaggio di tipo $n$) e i \textit{p-MOS} (drogaggio di tipo $p$). In particolare la relazione statica che lega la corrente che scorre tra i terminali di drain e source è funzione della differenza di tensione $V_{gs}$ tra \textit{gate} e source, ma anche della differenza di tensione $\Vds$ tra drain e source:
 	\begin{equation} \label{eq:relstatica}
 		I = K_n \frac W L \left[ \big(\Vgs - \Vtn\big)\Vds - \frac{\Vds^2}{2} \right]
 	\end{equation} 
-	In questa relazione è possibile osservare la presenza di 3 parametri fondamentali a determinare il comportamento del transistor: la \textit{conducibilità intrinseca} $K_n$, proprietà caratteristica del semiconduttore utilizzato per il bulk, e le dimensioni caratteristiche $W$ (larghezza) e $L$ (lunghezza) del canale conduttivo. Nella caratteristica statica fondamentale è anche la \textit{tensione di soglia} $\Vtn$ dipendente sia dalla costituzione del transistor, sia dalla differenza di tensione $V_{bs}$ tra bulk e source. 
+	In questa relazione è possibile osservare la presenza di 3 parametri fondamentali a determinare il comportamento del transistor: la \textit{conducibilità intrinseca} $K_n$, proprietà caratteristica del processo tecnologico, e le dimensioni caratteristiche $W$ (larghezza) e $L$ (lunghezza) del canale conduttivo. Nella caratteristica statica fondamentale è anche la \textit{tensione di soglia} $\Vtn$ dipendente sia dalla costituzione del transistor, sia dalla differenza di tensione $V_{bs}$ tra bulk e source. 
 	
 	Il modello presentato in equazione \ref{eq:relstatica} è in realtà una versione approssimata della caratteristica di trasferimento reale di un transistor MOS e trascura molti fenomeni elettro-magnetici che nella realtà dovrebbero essere considerati; esso può essere utile a livello didattico per concepire il funzionamento di alcuni circuiti semplici, tuttavia per problemi più complessi un approccio analitico approssimato può portare a risultati fuorvianti. \\
 	Un approccio simulativo è infatti più indicato per poter analizzare le prestazioni di circuiti più complessi in quanto a prova di errori (una volta che ci si è assicurati di aver implementato correttamente gli schematici) e permette di considerare effetti elettro-magnetici che analiticamente sarebbe difficile da studiare.
@@ -16,9 +16,9 @@
 \section{Parametri di simulazione}
 	Per poter effettuare delle simulazioni è necessario fornire al software una raccolta con le informazioni da utilizzare per modellare il transistor, ossia è necessario specificare tutti i parametri che possono essere sia geometrici, ma anche legati alle proprietà dei materiali. 
 	
-	Facendo diretto riferimento ai parametri presenti nell'equazione \ref{eq:relstatica} per un transistor è necessario in primo luogo indicare la conducibilità intrinseca \texttt{Kp} $[A/V^2]$, la lunghezza \texttt{L} $[m]$  e la larghezza \texttt{W} $[m]$  del canale conduttivo. Altri parametri geometrici che possono essere utilizzati per migliorare l'analisi è indicare sia perimetro che area per il terminale di drain (parametri \texttt{PD} $[m]$ e \texttt{AD} $[m^2]$) e il terminale source (parametri \texttt{PS} e \texttt{AS}).
+	Facendo diretto riferimento ai parametri presenti nell'equazione \ref{eq:relstatica} per un transistor è necessario in primo luogo indicare la conducibilità intrinseca \texttt{Kp} $[A/V^2]$, la lunghezza \texttt{L} $[m]$  e la larghezza \texttt{W} $[m]$  del canale conduttivo. Altri parametri geometrici che possono essere utilizzati per migliorare l'analisi sono perimetro e area per il terminale di drain (parametri \texttt{PD} $[m]$ e \texttt{AD} $[m^2]$) e il terminale source (parametri \texttt{PS} e \texttt{AS}).
 	
-	Come parametri funzionali per il calcolo della caratteristica statica dei MOSFET si menziona la tensione di soglia, modellata tramite il parametro \texttt{Vto} $[V]$. L'effetto body, dovuto alla differenza di tensione tra bulk e source, richiede invece di specificare il relativo coefficiente \texttt{Gamma} $\left[V^{0.5}\right]$ e il coefficiente superficiale \texttt{Phi} $[V]$. Come ultimo parametro di un transistor si menziona il coefficiente di modulazione di lunghezza di canale \texttt{Lambda} $\left[V^{-1}\right]$.
+	Come parametri funzionali per il calcolo della caratteristica statica dei MOSFET si menziona la tensione di soglia, modellata tramite il parametro \texttt{Vto} $[V]$. L'effetto body, dovuto alla differenza di tensione tra bulk e source, richiede invece di specificare il relativo coefficiente \texttt{Gamma} $\left[V^{0.5}\right]$ e il potenziale superficiale \texttt{Phi} $[V]$. Come ultimo parametro di un transistor si menziona il coefficiente di modulazione di lunghezza di canale \texttt{Lambda} $\left[V^{-1}\right]$.
 	
 	\begin{table}[bht]
 		
@@ -27,27 +27,27 @@
 			& & \multicolumn{2}{c}{famiglia di transistor }  \\
 			parametro & unità & n-MOS & p-MOS \\ \hline 
 			\texttt{K} & $[A/V^2]$ & $50\cdot 10^{-6}$ & $20\cdot 10^{-6}$ \\
-			\texttt{W} & $[m]$ & $50\cdot 10^{-6}$ & $20\cdot 10^{-6}$ \\
-			\texttt{L} & $[m]$ & $50\cdot 10^{-6}$ & $20\cdot 10^{-6}$ \\
+			\texttt{W} & $[\mu m]$ & $0.42-7$ & $0.42-7$ \\
+			\texttt{L} & $[\mu m]$ & $0.15-8$ & $0.15-8$ \\
 		\end{tabular}
-		\caption{parametri di simulazioni utilizzati nel seguente documenti; i dati sono basati su transistor \textbf{ALTRE INFORMAZIONI}}
+		\caption{valori di riferimento per i principali parametri di simulazione per transistor.}
 		
 		
 	\end{table}
 
 
-	Un componente reale, in condizioni sia statiche, presenta delle perdite di corrente sia tra drain e source, sia tra gate e source, nel cosiddetto fenomeno della \textit{current leakage} (perdita di corrente) associato alle correnti parassite. Analizzando invece il comportamento dinamico del circuito è possibile osservare che i MOSFET presentano un'inerzia alla trasmissione di carica (rispetto ad ogni coppia di terminali): tali effetti di \textit{capacità parassite} possono essere modellate tramite l'inserimento nello schematico di capacità equivalenti. \\
-	Nella pratica le relazioni che determinano correnti e capacità parassite sono complesse (equazioni fortemente non lineari) e dipendenti da molti parametri dei transistor stessi: non esiste dunque un modello univoco che può essere utilizzato per la simulazione dei circuiti (ad un livello di complessità simil-realistico), ma in generale ogni produttore mette a disposizione dei progettisti i loro modelli spice che possono dunque essere inclusi negli schematici per effettuare delle simulazioni più interessanti.
+	Un componente reale in condizioni statiche presenta delle perdite di corrente sia tra drain e source, sia tra gate e source, nel cosiddetto fenomeno della \textit{current leakage} (perdita di corrente) associato alle correnti parassite. Analizzando invece il comportamento dinamico del circuito è possibile osservare che i MOSFET presentano un'inerzia alla trasmissione di carica (rispetto ad ogni coppia di terminali): tali effetti di \textit{capacità parassite} possono essere modellate tramite l'inserimento nello schematico di capacità equivalenti. \\
+	Nella pratica le relazioni che determinano correnti e capacità parassite sono complesse (equazioni fortemente non lineari) e dipendenti da molti parametri dei transistor stessi: non esiste dunque un modello univoco che può essere utilizzato per la simulazione dei circuiti (ad un livello di complessità simil-realistico), ma in generale ogni produttore mette a disposizione dei progettisti i propri modelli spice che possono dunque essere inclusi negli schematici per effettuare delle simulazioni più interessanti.
 	
 \section{\textit{Process Design Kit}: skywater}
 	
-	Il \textit{Process Design Kit}, spesso abbreviato dall'acronimo \textit{PDK}, è una suite di librerie e applicativi che permettono una progettazione corretta di un circuito integrato. In questi kit sono contenuti infatti tutti i modelli spice (sia dal modello lineare più semplice, sia a modelli del $4^\circ$ ordine più complessi) che possono essere utilizzati per le simulazioni, oltre che a una serie di informazioni che vincolano la progettazione per permettere di ottenere un prodotto che sia effettivamente utilizzabile nel mondo reale. Per esempio, oltre a tutte le informazioni riguardanti ingombri fisici, i PDK contengono le proprietà per simulare con maggior precisione le correnti e capacità parassite che si generano nel prodotto finito.
+	Il \textit{Process Design Kit}, spesso abbreviato dall'acronimo \textit{PDK}, è una suite di librerie e applicativi che permettono una progettazione corretta di un circuito integrato. In questi kit sono contenuti infatti tutti i modelli spice (sia dal modello lineare più semplice, sia a modelli del $4^\circ$ ordine più complessi) che possono essere utilizzati per le simulazioni, oltre che a una serie di informazioni che vincolano la progettazione per permettere di ottenere un prodotto che sia effettivamente utilizzabile e realizzabile nel mondo reale. Per esempio, oltre a tutte le informazioni riguardanti ingombri fisici, i PDK contengono le proprietà per simulare con maggior precisione le correnti e capacità parassite che si generano nel prodotto finito in funzione della disposizione su chip dei transistor.
 	
 	\skywater, come dice il nome stesso, è dunque un PDK rilasciato pubblicamente frutto della collaborazione di Google con la fondazione Skywater; questo progetto, per come riportato dal team di sviluppo del PDK stesso, è ancora in fase sperimentale e dunque può non essere perfettamente accurato, tuttavia si osserva che lo stesso progetto deriva direttamente da PDK utilizzati da anni a livello professionale. \\
 	L'idea alla base di questo progetto open source è quella di permettere a tutte le persone di progettare e prototipare circuiti integrati, permettendo la realizzazione pratica sfruttando il processo produttivo a $130 nm$ fornito da \texttt{SkyWater Technology foundry} \cite{fossi}.
 	
 	
-	Sfruttando la suite di software composta da \texttt{XSchem}, \texttt{ngspice} e \texttt{skywater PDK} è possibile realizzare degli schematici e dei circuiti che si avvicinano il più possibile a dei circuiti reali.
+	Sfruttando la suite di software composta da \texttt{XSchem}, \texttt{ngspice} e \texttt{skywater PDK} è possibile realizzare degli schematici e dei circuiti che si avvicinano il più possibile a dei circuiti reali per poter effettuare delle simulazioni.
 	
 	\subsection*{Contenuti del PDK}
 		La libreria skywater mette a disposizione sostanzialmente 2 categorie di modelli spice per la simulazione:
@@ -57,13 +57,13 @@
 			\item la \textit{digital standard cells}, abbreviate SC, sono invece già dei circuiti combinatori che sfruttano l'interconnessione delle celle primitive per realizzare porte logiche (and, or, not...) e altri circuiti combinatori (latch).
 		\end{itemize}
 		
-		Nella libreria sono presenti diverse varianti di transistori caratterizzati sia principalmente dalle differenze di tensioni ammissibili tra le coppie di terminali dei componenti (si trovano componenti che funzionano per tensioni $\Vgs,\Vds$ di valori $1.8V,\ 3.3V,\ 5.0V, \ 20V$).  Leggendo la documentazione \cite{specsky} rilasciata dagli sviluppatori è inoltre possibile individuare i valori di lunghezza $L$ e larghezza $W$ ammissibili per la produzione di ogni tipo di mosfet.	
+		Nella libreria sono presenti diverse varianti di transistori caratterizzati principalmente dalle differenze di tensioni ammissibili tra le coppie di terminali dei componenti (si trovano componenti che funzionano per tensioni $\Vgs,\Vds$ di valori $1.8V,\ 3.3V,\ 5.0V, \ 20V$).  Leggendo la documentazione \cite{specsky} rilasciata dagli sviluppatori è inoltre possibile individuare i valori di lunghezza $L$ e larghezza $W$ ammissibili per la produzione di ogni tipo di mosfet.	
 		
 		La libreria delle standard cells derivanti dalle celle primitive sono divise in diverse famiglie caratterizzate dagli appellativi:
 		\begin{itemize}
-			\item \textit{high density} (HD) e \textit{high density low leakage} (HDLL), ossia porte logiche la cui caratteristica è di avere ingombri su chip più bassi (pari a $0.46\times 2.72 \mu m$) in modo da aumentare la densità di integrazione su scheda; la seconda tipologia, come si evince dal nome, è caratterizzata inoltra da una bassa dispersione di corrente elettrica. La tensione di alimentazione è posta a $1.8V$;
-			\item le celle a bassa tensione (alimentazione $<2.0V$) sono classificate in base alla velocità di commutazione dei gate secondo gli appellativi \textit{low speed} (LS), \textit{medium speed} (MS) e \textit{high speed} (HS); in questa categoria è possibile rilevare anche le celle a basso consumo di potenza (categoria \textit{low power} LP). L'ingombro su scheda di queste celle elementari è pari a $0.48\times 3.33\mu m$;
-			\item \textit{high voltage} (HVL) sono invece delle celle con tensione di alimentazione pari a $5.0V$ con ingombro su scheda di $0.48\times 4.07 \mu m$.
+			\item \textit{high density} (HD) e \textit{high density low leakage} (HDLL), ossia porte logiche la cui caratteristica è di avere ingombri su chip più bassi (pari a $0.46\times 2.72 \mu m^2$) in modo da aumentare la densità di integrazione; la seconda tipologia, come si evince dal nome, è caratterizzata inoltra da una bassa dispersione di corrente elettrica. La tensione di alimentazione è posta a $1.8V$;
+			\item le celle a bassa tensione (alimentazione $<2.0V$) sono classificate in base alla velocità di commutazione dei gate secondo gli appellativi \textit{low speed} (LS), \textit{medium speed} (MS) e \textit{high speed} (HS); in questa categoria è possibile rilevare anche le celle a basso consumo di potenza (categoria \textit{low power} LP). L'ingombro su scheda di queste celle elementari è pari a $0.48\times 3.33\mu m^2$;
+			\item \textit{high voltage} (HVL) sono invece delle celle con tensione di alimentazione pari a $5.0V$ con ingombro su scheda di $0.48\times 4.07 \mu m^2$.
 		\end{itemize}
 	
 		\paragraph{Corner spice models} La descrizione tramite un modello matematico astratto per predire il comportamento empirico di un componente analogico non sempre risulta essere accurato per via dei parametri di influenza esterni che il calcolatore non può considerare (come correnti e capacità parassite che si instaurano inevitabilmente tra i componenti).
@@ -74,7 +74,7 @@
 	\subsection*{Componenti utilizzati}
 		Effettuata questa premessa sui contenuti del pdk skywater, nel proseguimento del seguente documento per la progettazione e simulazione dei circuiti si utilizzeranno modelli di transistor n-mos e p-mos con tensione nominale a 1.8V, in linea con le tensioni di alimentazione utilizzate nei microprocessori nei primi anni 2000, periodo a cui è possibile far risalire il processo produttivo di skywater. 
 		
-		Facendo riferimento al processore \texttt{Intel Pentium III Tualatin}, rilasciato sul mercato nel 2001, in quanto prodotto con un processo a $130nm$, è possibile stimare l'ingombro medio di un transistor su scheda di circa $1.82 \mu m^2$: tramite una ricerca per approssimazioni successive si determinano le dimensioni $W/L = 1/0.15 \mu m/\mu m$ per gli n-mos, mentre per i p-mos $W/L = 4.8/0.15 \mu m/\mu m$. Con tali dimensioni dei mosfet, l'ingombro medio di una coppia di transistor è pari a $2.61 \mu m^2$.
+		Facendo riferimento al processore \texttt{Intel Pentium III Tualatin} \cite{tualatin}, rilasciato sul mercato nel 2001, in quanto prodotto con un processo a $130nm$, è possibile stimare l'ingombro medio di un transistor di circa $1.82 \mu m^2$: tramite una ricerca per approssimazioni successive si determinano le dimensioni $W/L = 1/0.15 \mu m/\mu m$ per gli n-mos, mentre per i p-mos $W/L = 4.8/0.15 \mu m/\mu m$. Con tali dimensioni dei mosfet, l'ingombro medio di una coppia di transistor è pari a $2.61 \mu m^2$.
 		
 		\begin{figure}[bht]
 			\centering
@@ -84,10 +84,10 @@
 	
 		Simulando il circuito in figura \ref{fig:intro:schematico-nmos} è possibile ottenere la caratteristica statica (figura \ref{fig:intro:nmos-carattstatica}) di trasferimento che determina la corrente $I_n$ che fluisce dal drain verso il source in funzione delle tensioni differenziali $V_{ds}$ e $V_{gs}$. Tramite questa si può anche determinare la tensione di soglia $\Vtn$ del transistor che è pari a circa $0.6V$.
 		
-		\begin{figure}[h!]
+		\begin{figure}[H]
 			\centering
 			\input{Immagini/caratt_statica.tex}
-			\caption{caratteristica statica ottenuta mediante simulazione \texttt{dc sweep} del circuito in figura \ref{fig:intro:schematico-nmos}.}
+			\caption{caratteristica statica di uscita ottenuta mediante simulazione \texttt{dc sweep} del circuito in figura \ref{fig:intro:schematico-nmos}.}
 			\label{fig:intro:nmos-carattstatica}
 		\end{figure}
 		
@@ -98,20 +98,20 @@
 		\begin{figure}[bht]
 			\centering
 			\includegraphics[width=5cm]{Immagini/circuito_transitorio.eps}
-			\caption{circuito per simulare la scarica di un condensatore $C_1$ di capacità $1nF$, posto inizialmente ad una tensione $V_{out} = 1.8V$, mediante l'utilizzo di transistor n-mos.} \label{fig:intro:schematico-transitorio}
+			\caption{circuito per simulare la scarica di un condensatore $C_1$ di capacità $0.75pF$, posto inizialmente ad una tensione $V_{out} = 1.8V$, mediante l'utilizzo di transistor n-mos.} \label{fig:intro:schematico-transitorio}
 		\end{figure}
 	
-		Il circuito più semplice da considerare a tale fine è quello riportato in figura \ref{fig:intro:schematico-transitorio} che si basa sullo scaricare una capacità di $100fF$ mediante l'utilizzo di transistori n-mos. In questo caso si pone al massimo la tensione $\Vgs = 1.8V$ e si effettua una simulazione sul transitorio. Posto che al tempo iniziale la tensione in uscita $\Vout$ fosse pari allo stato alto $1.8V$, utilizzando i diversi modelli corner spice forniti è possibile effettuare dei diagrammi di rappresentazione dei transitori.
+		Il circuito più semplice da considerare a tale fine è quello riportato in figura \ref{fig:intro:schematico-transitorio} che si basa sullo scaricare una capacità di $0.75pF$ mediante l'utilizzo di transistori n-mos. In questo caso si pone al massimo la tensione $\Vgs = 1.8V$ e si effettua una simulazione sul transitorio. Posto che al tempo iniziale la tensione in uscita $\Vout$ fosse pari allo stato alto $1.8V$, utilizzando i diversi modelli corner spice forniti è possibile effettuare dei diagrammi di rappresentazione dei transitori.
 	
 		\begin{figure}[bht]
 			\centering
 			\input{Immagini/transitori.tex}
-			\caption{evoluzione della tensione in uscita $V_{out}$ dovuta alla scarica della capacità mediante un mosfet (circuito in figura \ref{fig:intro:schematico-transitorio}).}
+			\caption{evoluzione della tensione in uscita $V_{out}$ dovuta alla scarica della capacità da $0.75pF$ mediante un mosfet (circuito in figura \ref{fig:intro:schematico-transitorio}).}
 			\label{fig:intro:nmos-tempitransitorio}
 		\end{figure}
 	
 		Facendo riferimenti ai risultati in figura \ref{fig:intro:nmos-tempitransitorio}, è possibile osservare che modelli corner diversi, rispetto al nome loro assegnato, producono dei risultati distinti. Ipotizzando di concludere il transitorio al $90\%$ di escursione del segnale, ossia quando la tensione in uscita raggiunge il valore $V_{out} = 0.18V$, si ottengono i tempi per i 3 modelli pari a:
-		\[ t_{slow} \approx 932ps \qquad t_{typical} \approx 812 ps \qquad t_{fast} \approx 722 ps    \] 
+		\[ t_{slow} \approx 6.88ns \qquad t_{typical} \approx 6.03ns \qquad t_{fast} \approx 5.36 ns  \] 
 		Ove non diversamente specificato nella prosecuzione del documento tutti comportamenti transitori verranno valutati rispetto ad un comportamento tipico dei transistor.
 		
 	

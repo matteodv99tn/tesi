@@ -1,13 +1,13 @@
 \chapter{Porte logiche in tecnologia c-MOS}
 	
-	I principali componenti attuali utilizzati nei dispositivi digitali sono realizzati mediante l'implementazione su chip di transistor opportunamente connessi. Come visto i mosfet sono degli oggetti che sono intrinsecamente analogici, tuttavia il loro principio di funzionamento gli rende altamente adatti a realizzare funzioni digitali.
+	I principali componenti attuali utilizzati nei dispositivi digitali sono realizzati mediante l'implementazione su chip di transistor opportunamente connessi. Come visto i mosfet sono degli oggetti che sono intrinsecamente analogici, tuttavia il loro principio di funzionamento li rende altamente adatti a realizzare funzioni digitali.
 	
 	A livello digitale infatti i transistor possono essere considerati come degli interruttori che permettono o negano il passaggio di corrente tra i propri terminali. Considerando infatti la caratteristica statica dell'n-mos (figura \ref{fig:intro:nmos-carattstatica}, pagina \pageref{fig:intro:nmos-carattstatica}) è possibile osservare che se si pone una tensione di gate $V_g$ nulla (più in generale inferiore della tensione di soglia $\Vtn$) il dispositivo non permette il passaggio di corrente ai suoi capi (indipendentemente dalla tensione differenziale $V_{ds}$ applicata); usciti dalla fascia di interdizione è possibile osservare invece che, in funzione della tensione $\Vgs$, è possibile avere un passaggio di corrente attraverso i terminali del mosfet.\\
-	Dualmente si dimostra che se la tensione $V_g$ applicata al gate di un transitor p-mos è elevata (tale per cui la differenza $|V_{ds}|$ sia minore della tensione di soglia $|V_{tp}|$) allora il componente risulta interdetto e non permette il passaggio di corrente.
+	Dualmente si dimostra che se la tensione $V_g$ applicata al gate di un transitor p-mos è elevata (tale per cui la differenza $|V_{gs}|$ sia minore della tensione di soglia $|V_{tp}|$) allora il componente risulta interdetto e non permette il passaggio di corrente.
 	
 	Questa peculiarità nel funzionamento duale dei componenti è particolarmente utile nelle implementazioni digitali dove in generale si considerano i segnali di tensione (intrinsecamente analogici) come dei segnali binari di valore basso (0) associato alla tensione di massa e valore alto (1) associato alla tensione di alimentazione $V_{dd}$.
 	
-	Lo scopo di questo capito è dunque quello di osservare e rappresentare le porte logiche che compongono ogni circuito combinatorio di un dispositivo tecnologico.
+	Lo scopo di questo capitolo è dunque quello di osservare e rappresentare le porte logiche che compongono ogni circuito combinatorio di un dispositivo tecnologico.
 
 \section{Not gate}
 	
@@ -19,7 +19,7 @@
 	\end{tabular}
 	\end{center}
 	
-	L'implementazione circuitale di questa porta è mostrata in figura \ref{fig:not:schematico} ed è realizzata ponendo in serie un p-mos con un n-mos: l'ingresso $V_{in}$ del segnale digitale viene applicato ad entrambi i gate dei transistor, mentre il segnale in uscita $V_{out}$ viene rilevato nel collegamento tra i due mosfet.
+	L'implementazione circuitale di questa porta è mostrata in figura \ref{fig:not:schematico} ed è realizzata ponendo in serie un p-mos con un n-mos: l'ingresso $V_{in}$ del segnale digitale viene applicato ad entrambi i gate dei transistor, mentre il segnale in uscita $V_{out}$ viene rilevato nel collegamento tra i due drain dei mosfet.
 	
 	\begin{figure}[bht]
 		\centering
@@ -31,7 +31,7 @@
 			\centering
 			\includegraphics[width=2.5cm]{Immagini/not-gate-simple.eps} \caption{}			
 		\end{subfigure}
-		\caption{implementazione di un invertitore logico in tecnologia c-mos (a) e relativa rappresentazione semplificata per circuiti logici (b).} 
+		\caption{implementazione di un invertitore logico in tecnologia c-mos (a) e relativa rappresentazione simbolica per circuiti logici (b).} 
 		\label{fig:not:schematico}
 	\end{figure}
 	
@@ -40,14 +40,14 @@
 	
 	A questo punto è possibile procedere con l'analisi del circuito per casi:
 	\begin{itemize}
-		\item nel caso in cui la tensione in ingresso sia bassa ($V_{in} = 0$) allora l'n-mos risulterebbe essere interdetto ($I_n = 0$), mentre il p-mos è posto in regime di saturazione. L'unica condizione che permette al p-mos di non far scorrere attraverso i suoi terminali è quella per cui la tensione differenziale $V_{ds}$ sia nulla: questo porta dunque ad affermare che
+		\item nel caso in cui la tensione in ingresso sia bassa ($V_{in} = 0$) allora l'n-mos risulterebbe essere interdetto ($I_n = 0$), mentre il p-mos è posto in regime di saturazione. L'unica condizione che permette al p-mos di non far scorrere corrente attraverso i suoi terminali è quella per cui la tensione differenziale $V_{ds}$ è nulla: questo porta ad affermare che
 		\[ V_d = V_s \qquad \Rightarrow \qquad V_{out} = V_{dd} \]
 		
 		\item analogamente nel caso in cui l'ingresso si trovi ad una tensione in ingresso alta ($V_{in} = V_{dd}$), il p-mos risulterà interdetto, non permettendo il passaggio di alcuna corrente. Condizione necessaria affinché anche l'n-mos annulli la corrente attraverso i suoi terminali è che la tensione differenziale $V_{ds}$ sia nulla, e dunque
 		\[ V_{out} = 0 \]
 	\end{itemize} 
 	
-	In figura \ref{fig:not:carattstatica} è possibile invece osservare la caratteristica statica analogica realizzata dal dispositivo.
+	In figura \ref{fig:not:carattstatica} è possibile invece osservare la caratteristica statica del dispositivo ottenuta mediante una simulazione.
 	
 	\begin{figure}[H]
 		\centering
@@ -56,37 +56,39 @@
 		\label{fig:not:carattstatica}
 	\end{figure}
 
-	L'implementazione delle porte logiche in tecnologia c-mos è caratterizzata da una forte immunità al rumore. I transistor implementati infatti, alimentati ad una tensione di $1.8V$, permettono di avere una tensione $V_{ilmax}$ pari a circa $0.6V$ e $V_{ihmin} = 0.9V$: questo significa che il segnale in uscita da una porta logica a valle può acquisire fino a $0.6V$ di rumore senza inficiare sul corretto funzionamento del circuito.
+	L'implementazione delle porte logiche in tecnologia c-mos è caratterizzata da una forte immunità al rumore. Definendo infatti con $V_{ilmax}$ la massima tensione a cui è associato una corrispondenza con il segnale basso (ossia ogni tensione $V<V_{ilmax}$ è considerato un 0 binario) e con $V_{ihmin}$ la minima tensione in ingresso riconosciuta come segnale alto, dall'analisi della caratteristica di trasferimento (figura \ref{fig:not:carattstatica}) si osserva che i valori ad esso associati sono circa $V_{ilmax} =0.6V$ e $V_{ihmin} = 0.9V$ rispetto ad una tensione di alimentazione $V_{dd} = 1.8V$. Questo significa che il segnale in uscita da una porta logica a valle può acquisire fino a $0.6V$ di rumore senza inficiare sul corretto funzionamento del circuito in quanto il segnale verrebbe ricevuto e considerato correttamente.
 	
 	\subsection*{Caratteristiche dinamiche}
 		
-		Nota la caratteristica statica del circuito logico, di rilevante interesse pratico è l'analisi dinamica del circuito, in quanto permetterà di stabilire a regime quale sarà la massima frequenza di commutazione della porta logica.
+		Nota la caratteristica statica del circuito logico, di rilevante interesse pratico è l'analisi dinamica dello stesso, in quanto permetterà di stabilire a regime quale sarà la massima frequenza di commutazione della porta logica.
 		
 		\begin{figure}[bht]
 			\centering
 			\includegraphics[width=5cm]{Immagini/not-gate-carico}
-			\caption{schema circuitale di riferimento per l'analisi della risposta dinamica di un invertitore logico che deve pilotare un circuito a valle modellato da una capacità di $100fF$.}
+			\caption{schema circuitale di riferimento per l'analisi della risposta dinamica di un invertitore logico che deve pilotare un circuito a valle modellato da una capacità di $0.75pF$.}
 			\label{fig:not:dinamica-schema}
 		\end{figure}
 		
-		A tale fine è necessario considerare un'invertitore, come in figura \ref{fig:not:dinamica-schema}, che pilota un circuito a valle che può essere modellato come una capacità (in questo caso di valore nominale di $100fF$).
+		A tale fine è necessario considerare un'invertitore, come in figura \ref{fig:not:dinamica-schema}, che pilota un circuito a valle che può essere modellato, come indicato nella documentazione di skywater \cite{specprimitivecells}, mediante una capacità di carico $C_{load}$ collegata all'uscita di valore $0.75pF$.
 	
 		\begin{figure}[bht]
 			\centering
 			\input{Immagini/not-dinamica.tex}
-			\caption{risposta dell'invertitore logico (in figura \ref{fig:not:dinamica-schema}) ad un'onda quadra in ingresso di periodo $8ns$ e duty cycle del $50\%$.}
+			\vspace{2mm}
+			\caption{risposta dell'invertitore logico (in figura \ref{fig:not:dinamica-schema}) ad un'onda quadra in ingresso di periodo $30ns$ e duty cycle del $50\%$.  Le tensioni sono espresse in volt.}
 			\label{fig:not:dinamica}
 		\end{figure}
 		
 		In figura \ref{fig:not:dinamica} è possibile leggere la risposta dell'invertitore ad un'onda quadra in ingresso. Data la simmetricità di comportamento scelta grazie ai rapporti $W/L$ diversi dei transistor p-mos ed n-mos è possibile osservare che i transistori di salita e discesa sono molto simili tra loro.
 		
-		Il valore di capacità di scelto è sufficientemente basso e ci permette di valutare dei parametri fondamentali per la risposta dinamica della porta logica quale i ritardi di propagazione dei segnali, ossia il tempo che intercorre tra la commutazione dell'ingresso e la rispettiva variazione dell'uscita. Questo parametro può essere valutato singolarmente sia per una variazione dell'ingresso da alto a basso $\tau_{hl}$, ma anche per lo stesso che passa da basso a alto $\tau_{lh}$ (in questo caso i tempi sono calcolati al $95\%$ dell'escursione di tensione):
-		\[ \tau_{lh} = 1018ps \qquad \tau_{hl} = 1021ps  \] 
+		Rispetto al valore della capacità scelto di $0.75pF$ (considerato rappresentativo di un generico circuito a valle) è possibile valutare i ritardi di propagazione dei segnali, ossia i tempi che intercorrono tra le commutazioni dell'ingresso e la rispettiva variazione d'uscita. \\		
+		Tali parametri possono essere valutati singolarmente sia per una variazione dell'ingresso da alto a basso $\tau_{hl}$, ma anche per lo stesso che passa da basso a alto $\tau_{lh}$ (in questo caso i tempi sono calcolati al $95\%$ dell'escursione di tensione):
+		\[ \tau_{lh} = 7.21ns \qquad \tau_{hl} = 7.14ns  \] 
 
 
 
 \section{Nor gate}
-	La porta logica \textit{nor}, coincidente con la negazione del gate \textit{or}, è un gate che, insieme al \textit{nand}, costituisce un \textit{gate universale}, ossia in grado di realizzare, tramite delle opportune interconnessioni, tutte le funzioni logiche digitali. Tale porta a due (o più ingressi) rispetta la seguente tabella di verità:
+	La porta logica \textit{nor}, coincidente con la negazione del gate \textit{or}, è un gate che, come il \textit{nand}, costituisce un \textit{operatore universale}, ossia in grado di realizzare tramite delle opportune interconnessioni tutte le funzioni logiche digitali. Tale porta a due (o più ingressi) rispetta la seguente tabella di verità:
 	\begin{center}
 		\begin{tabular}{c c | c}
 			$V_{in,1}$ & $V_{in,2}$ & $V_{out}$ \\ \hline
@@ -112,34 +114,34 @@
 		\label{fig:nor:schematico}
 	\end{figure}
 
-	In figura \ref{fig:nor:schematico} è dunque possibile osservare un'implementazione della porta logica nand in tecnologia c-mos.\\
-	Tale circuito può essere analizzando le possibili combinazioni di ingresso presenti nella tabella di verità:
+	In figura \ref{fig:nor:schematico} è dunque possibile osservare un'implementazione della porta logica nor in tecnologia c-mos.\\
+	Tale circuito può essere descritto analizzando le possibili combinazioni di ingresso presenti nella tabella di verità:
 	\begin{itemize}
-		\item nel caso in cui entrambi gli ingressi si trovano ad un valore basso (prima riga della tabella di verità), allora risultano interdetti i transistor a substrato n, mentre la rete di pull-up composta dai due p-mos in serie risulta essere attiva. L'unico modo per garantire corrente nulla in uscita dal circuito è quello di avere tensione differenziale $V_{ds}$ dei p-mos nulla, ossia nel caso in cui $V_{out} = V_{dd}$, verificando la tabella di verità;
+		\item nel caso in cui entrambi gli ingressi si trovino ad un valore basso (prima riga della tabella di verità), allora risulterebbero interdetti i transistor a substrato n, mentre la rete di pull-up composta dai due p-mos in serie risulterebbe essere attiva. L'unico modo per garantire corrente nulla in uscita dal circuito è quello di avere tensione differenziale $V_{ds}$ dei p-mos nulla, ossia nel caso in cui $V_{out} = V_{dd}$, verificando la tabella di verità;
 		
-		\item in tutti gli altri casi in cui almeno un segnale si trova in uno stato di tensione alto si osserva che la rete di pull-up sarà sicuramente interdetta (il p-mos associato all'ingresso alto non permette infatti passaggio di corrente), e dunque la tensione in uscita sarà determinata dalla rete di pull-down degli n-mos che risulteranno attivi. Sempre per imposizione della condizione di corrente nulla al nodo d'uscita si ottiene che la tensione differenziale $V_{ds}$ degli n-mos deve essere nulla e dunque $V_{out} = 0$.
+		\item in tutti gli altri casi in cui almeno un segnale si trova in uno stato di tensione alto si osserva che la rete di pull-up sarà sicuramente interdetta (il p-mos associato all'ingresso alto non permetterebbe infatti passaggio di corrente), e dunque la tensione in uscita sarà determinata dalla rete di pull-down degli n-mos che risulteranno attivi. Sempre per imposizione della condizione di corrente nulla al nodo d'uscita si ottiene che la tensione differenziale $V_{ds}$ degli n-mos deve essere nulla e dunque $V_{out} = 0$.
 	\end{itemize}
 	
-	Tale comportamento può dunque essere verificato mediante una simulazione del transitorio (il cui risultato è mostrato in figura \ref{fig:nor:dinamica}), imponendo come ingressi delle onde quadre di periodo multiplo per analizzare le risposte del circuito ai vari ingressi e determinare così le principali caratteristiche dinamiche.
+	Tale comportamento può essere verificato mediante una simulazione del transitorio (il cui risultato è mostrato in figura \ref{fig:nor:dinamica}), imponendo come ingressi delle onde quadre di periodo multiplo per analizzare le risposte del circuito alle varie combinazioni di ingressi e determinare così le principali caratteristiche dinamiche.
 	
 	\begin{figure}[bht]
 		\centering
 		\input{Immagini/nor-dinamica}
-		\caption{risposta del gate nor a due ingressi di onde quadre di periodi multipli. Come nel caso dell'invertitore (fig. \ref{fig:not:dinamica-schema}) il circuito a valle della porta logica è modellato da una capacità di carico di $100fF$.}
+		\caption{risposta del gate nor a due ingressi di onde quadre di periodi multipli. Come nel caso dell'invertitore (fig. \ref{fig:not:dinamica-schema}) il circuito a valle della porta logica è modellato da una capacità di carico di $0.75pF$.  Le tensioni sono espresse in volt.}
 		\label{fig:nor:dinamica}
 	\end{figure}
 
-	Calcolando i tempi di propagazione dei segnali per un'escursione del $95\%$ della tensione di alimentazione, è possibile osservare che il tempo di transizione del segnale dal valore logico alto a quello basso è minore rispetto alla transizione inversa ($525ps$ vs $2\,224 ps$): tale effetto è giustificabile considerando il fatto che la rete di pulldown composta dal parallelo di n-mos permette di generare una quantità di corrente maggiore rispetto alla rete di pull-up determinata dalla serie di p-mos. Un modo dunque per correggere questo sbilanciamento sarebbe di rideterminare dei nuovi parametri $W/L$ per i transistor in modo da bilanciare il comportamento.
+	Calcolando i tempi di propagazione dei segnali per un'escursione del $95\%$ della tensione di alimentazione, è possibile osservare che il tempo di transizione del segnale dal valore logico alto a quello basso è minore rispetto alla transizione inversa ($7.22ns$ vs $14.73 ns$): tale effetto è giustificabile considerando il fatto che la rete di pulldown composta dal parallelo di n-mos permette di generare una quantità di corrente maggiore rispetto alla rete di pull-up determinata dalla serie di p-mos. Un modo dunque per correggere questo sbilanciamento sarebbe di rideterminare dei nuovi parametri $W/L$ per i transistor in modo da bilanciare il comportamento.
 	
-	\begin{figure}[bht]
+	\begin{figure}[H]
 		\centering
 		\input{Immagini/nor-dinamica-corr}
 		\vspace{3.5mm}
-		\caption{risposta del circuito nor ottenuta aumentando il rapporto $W/L$ dei p-mos al valore $4.8/0.15 \mu m/\mu m$; il segnale in ingresso coincide con quello mostrato in figura \ref{fig:nor:dinamica}.}
+		\caption{risposta del circuito nor ottenuta aumentando il rapporto $W/L$ dei p-mos al valore $4.8/0.15 \mu m/\mu m$; i mosfet a substrato n rimangono invarianti con un rapporto $1/0.45\mu m/\mu m$.  Le tensioni sono espresse in volt.}
 		\label{fig:nor:dinamica-corretta}
 	\end{figure}
 	
-	Diminuendo la lunghezza $L$ dei transistor p-mos al valore $0.15\mu m$ il comportamento del circuito tende a bilanciarsi (come si può osservare in figura \ref{fig:nor:dinamica-corretta}), con tempi di transizione da uscita alta a bassa di $547ps$ e da uscita bassa ad alta di $695ps$. 
+	Diminuendo la larghezza $W$ dei transistor p-mos al valore $0.15\mu m$ il comportamento del circuito tende a bilanciarsi (come si può osservare in figura \ref{fig:nor:dinamica-corretta}), con tempi di transizione da uscita alta a bassa di $3.61ns$ e da uscita bassa ad alta di $4.31ns$. 
 	
 \section{Nand gate}
 	La porta logica \textit{nand}, coincidente con la negazione del gate \textit{and}, è il gate che, per costruzione, risulta duale alla porta nor appena studiata ed è caratterizzata dalla tabella di verità
@@ -153,7 +155,7 @@
 		\end{tabular}
 	\end{center}
 	
-	La realizzazione circuitale della porta logica, come in figura \ref{fig:nand:schematico}, è molto simile al gate nor, dove tuttavia la rete di pull-up è realizzata da un parallelo (e non da una serie) di p-mos, mentre la rete di pull-down è realizzata da una serie (e non da un parallelo) di transistor n-mos. Avendo osservato l'assimetria di comportamento dovuta al collegamento in serie/parallelo dei mosfet vista nel gate nor, si procede sin da principio a diminuire la larghezza $W$ degli n-mos al valore di $0.15 \mu m$.
+	La realizzazione circuitale della porta logica, come in figura \ref{fig:nand:schematico}, è molto simile al gate nor, dove tuttavia la rete di pull-up è realizzata da un parallelo (e non da una serie) di p-mos, mentre la rete di pull-down è realizzata da una serie (e non da un parallelo) di transistor n-mos. Avendo osservato l'asimmetria di comportamento dovuta al collegamento in serie/parallelo dei mosfet vista nel gate nor, si procede sin da principio a diminuire la larghezza $W$ degli n-mos al valore di $0.15 \mu m$.
 
 	\begin{figure}[bht]
 		\centering
@@ -171,21 +173,21 @@
 
 	Il funzionamento del circuito può essere analizzato studiando le possibili combinazioni dei segnali in ingresso:
 	\begin{itemize}
-		\item nel caso in cui entrambi i segnali si trovino ad un valore logico alto (quarta riga della tabella di verità) si osserva che la rete di pull-up sarebbe interdetta (entrambi i p-mos sono spenti per via della tensione $V_{gs}$ nulla), mentre la rete di pull-down a transistor accesi permette un passaggio di corrente. Dovendo la stessa essere nulla per il bilancio della corrente al nodo d'uscita, si osserva necessariamente che $V_{out} = 0$;
+		\item nel caso in cui entrambi i segnali si trovino ad un valore logico alto (quarta riga della tabella di verità) la rete di pull-up risulterebbe interdetta (entrambi i p-mos sono spenti per via della tensione $V_{gs}$ nulla), mentre la rete di pull-down a transistor accesi permette un passaggio di corrente. Dovendo la stessa essere nulla per il bilancio della corrente al nodo d'uscita, si osserva necessariamente che $V_{out} = 0$;
 		
 		\item in tutti gli altri casi in cui almeno un ingresso sia allo stato logico basso, allora sicuramente uno degli n-mos sarebbe interdetto (e dunque di conseguenza lo è anche la rete di pull-down), mentre almeno uno dei p-mos rimarrebbe accesso, permettendo il passaggio di corrente nella rete di pull-up. Il bilancio della corrente al nodo d'uscita permette infine di stabilire che il relativo stato logico è alto ($V_{out} = V_{dd}$). 
 	\end{itemize}
 
-	Mediante una simulazione del transitorio nel tempo (con capacità di carico di $100fF$) è dunque possibile verificare il comportamento logico del circuito, arrivando ai risultati mostrati in figura \ref{fig:nand:dinamica}.	
+	Mediante una simulazione del transitorio nel tempo (con capacità di carico di $0.75pF$) è dunque possibile verificare il comportamento logico del circuito, arrivando ai risultati mostrati in figura \ref{fig:nand:dinamica}.	
 
 	\begin{figure}[bht]
 		\centering
 		\input{Immagini/nand-dinamica}
-		\caption{risposta del gate nand a due ingressi di onde quadre di periodi multipli. Come nel caso dell'invertitore (fig. \ref{fig:not:dinamica-schema}) il circuito a valle della porta logica è modellato da una capacità di carico di $100fF$.}
+		\caption{risposta del gate nand a due ingressi di onde quadre di periodi multipli. Come nel caso dell'invertitore (fig. \ref{fig:not:dinamica-schema}) il circuito a valle della porta logica è modellato da una capacità di carico di $0.75pF$.  Le tensioni sono espresse in volt.}
 		\label{fig:nand:dinamica}
 	\end{figure}
 	
-	A questo punto è possibile misurare il tempo di commutazione dell'uscita nel passaggio da tensione alta a bassa (misurata al $95\%$ dell'escursione del segnale), che si attesta al valore di $832ps$, mentre il passaggio del segnale da basso ad alto dura $1037ps$.
+	A questo punto è possibile misurare il tempo di commutazione dell'uscita nel passaggio da tensione alta a bassa (misurata al $95\%$ dell'escursione del segnale), che si attesta al valore di $5.51ns$, mentre il passaggio del segnale da basso ad alto dura $7.14ns$.
 	
 \section{And \& or gate}
 	Avendo studiato singolarmente i gate nand, nor e not, la costruzione dei gate logici \textit{and} e \textit{or} deriva direttamente tramite la connessione in sequenza della rispettiva porta negata con l'invertitore logico. In particolare le tabelle di verità che i due componenti devono realizzare sono:
@@ -226,15 +228,83 @@
 	\label{fig:andor:schematico}
 	\end{figure}
 
-	E' inoltre possibile procedere con le simulazioni dei transitori (con una capacità di carico di $100 fF$) che determinano gli andamenti temporali mostrati in figura \ref{fig:andor:dinamica}. Analizzando i tempi di propagazione dei segnali all'interno dei circuiti si arriva a dei tempi massimi per i due circuiti che si attestano ai valori
-	\[ \tau_{max,and} \approx 1202 ps \qquad \tau_{max,or} \approx 1150ps  \]
+	E' inoltre possibile procedere con le simulazioni dei transitori (con una capacità di carico di $0.75pF$) che determinano gli andamenti temporali mostrati in figura \ref{fig:andor:dinamica}. Analizzando i tempi di propagazione dei segnali all'interno dei circuiti si arriva a dei tempi massimi per i due circuiti che si attestano ai valori
+	\[ \tau_{max,and} \approx 7.31 ns \qquad \tau_{max,or} \approx 7.21 ns  \]
 
 
 	\begin{figure}[bht]
 		\centering
 		\input{Immagini/and-or-dinamica}
-		\caption{risposta dei gate and e or a ingressi di onde quadre a periodi multipli. Come nel caso dell'invertitore (fig. \ref{fig:not:dinamica-schema}) il circuito a valle della porta logica è modellato da una capacità di carico di $100fF$.}
+		\caption{risposta dei gate and e or a ingressi di onde quadre a periodi multipli. Come nel caso dell'invertitore (fig. \ref{fig:not:dinamica-schema}) il circuito a valle della porta logica è modellato da una capacità di carico di $0.75pF$. Le tensioni sono espresse in volt.}
 		\label{fig:andor:dinamica}
 	\end{figure}
 
-\textbf{MAGARI FARE DELLE CONSIDERAZIONI SULLE PRESTAZIONI, COME LA MASSIMA FREQUENZA DI COMMUTAZIONE}
+\subsection*{Xor gate}
+	Un'altra porta logica che verrà utilizzato nello sviluppo di alcuni circuiti combinatori è il gate logico \textit{xor}, ossia l'or esclusivo, per il quale l'uscita è alta solamente se uno degli ingressi è alto, ossia mediante rispettando la tabella di verità
+	\begin{center}
+		\begin{tabular}{c c | c}
+			$V_{in,1}$ & $V_{in,2}$ & $V_{out}$ \\ \hline
+			0 & 0 & 0 \\
+			0 & 1 & 1 \\
+			1 & 0 & 1 \\
+			1 & 1 & 0 \\
+		\end{tabular}
+	\end{center}
+	
+	In figura \ref{fig:xor} è mostrata la rappresentazione schematica del gate logico xor mediante l'interconnessione di porte logiche precedentemente studiate.
+	
+	\begin{figure}[bht]
+		\centering
+		\begin{subfigure}{0.48\linewidth}
+			\centering
+			\includegraphics[width=3cm]{Immagini/xor-gate-simple}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}{0.48\linewidth}
+			\centering
+			\includegraphics[width=8cm]{Immagini/xor-gate}
+			\caption{}
+		\end{subfigure}
+		\caption{schema rappresentativo del gate xor (a) e relativa costruzione mediante l'utilizzo di altre porte logiche (b).}
+		\label{fig:xor}
+	\end{figure}
+
+\section{Prestazione dei gate logici}
+	Avendo implementato in tecnologia c-mos i vari gate logici e avendone valutato le prestazioni, è possibile iniziare a teorizzare le velocità dei circuiti logici che essi potranno costituire.
+	
+	Considerando la capacità di carico di $0.75pF$ per tutti i circuiti utilizzati, si osserva che il transitorio di carica/scarica maggiore è associato alla porta logica and con un periodo $\tau$ pari a $7.31ns$: questo permette dunque di stabilire la massima frequenza $f$ cui possono operare i circuiti senza perdere la corretta funzionalità del circuito:
+	\[ f = \frac 1 \tau \approx 136 MHz\]
+	
+	Questo valore di riferimento tuttavia non può essere identificativo della velocità cui può funzionare un circuito logico più complesso, in quanto l'interconnessione di più porte logiche può aumentare la capacità equivalente di carico e dunque il tempo di propagazione del segnale all'interno del circuito.
+	
+	Per migliorare la stabilità nel funzionamento è possibile supporre che all'interno di un ciclo di clock il tempo legato al transitorio sia il $10\%$ del periodo complessivo: questo dunque riduce la frequenza di operatività del circuito al valore
+	\[ f \approx 13.6 MHz \]
+	
+	Questo valore di sicurezza permette così di stabilire una frequenza di operatività del circuito che assicuri una corretta trasmissione dei dati all'interno delle varie sezioni circuitali che compongono un microprocessore.
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\textbf{MAGARI FARE DELLE CONSIDERAZIONI SULLE PRESTAZIONI, COME LA MASSIMA FREQUENZA DI COMMUTAZIONE?}

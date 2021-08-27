@@ -113,7 +113,7 @@ std::string Draft::multiplot_data(){
     out << "set yrange [-0.2:2]" << std::endl;
     out << "set xlabel ''" << std::endl;
     out << "set xtics format ''" << std::endl;
-    out << "set ytics 0,0.6,1.8" << std::endl << std::endl;
+    out << "set ytics 0,0.9,1.8" << std::endl << std::endl;
     
     for(int i = 0; i < graph_labels.size(); i++){
         if(i == graph_labels.size()-1){
@@ -145,8 +145,9 @@ void Draft::setup_plot(){
     out << "set style line 11 lc rgb \"#FF8000\" lw 3 " << std::endl;
     out << "set style line 12 lc rgb \"#009900\" lw 3 " << std::endl;
     out << "set style line 13 lc rgb \"#CC00CC\" lw 3 " << std::endl;
-    out << "set style line 14 lc rgb \"#004C99\" lw 3 " << std::endl;
-    out << "set style line 15 lc rgb \"#004C99\" lw 3 " << std::endl;
+    out << "set style line 14 lc rgb \"#009999\" lw 3 " << std::endl;
+    out << "set style line 15 lc rgb \"#9933FF\" lw 3 " << std::endl;
+    out << "set style line 16 lc rgb \"#606060\" lw 3 " << std::endl;
     out << std::endl;
 
     out << "set grid lc rgb \"#C0C0C0\" lt 2 dt 2 lw 1" << std::endl;

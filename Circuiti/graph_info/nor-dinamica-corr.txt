@@ -1,9 +1,11 @@
 
-10 3.5
+10 5.5
 1e+09 1
 tempo $[ns]$
 $V_{out}$ $[V]$
-1
-$V_{out}$ $[V]$
+3
+$V_{out}$
+$V_{in,1}$
+$V_{in,2}$
 nor-dinamica-corr
 nor-dinamica-corr

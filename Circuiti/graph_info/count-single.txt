@@ -1,0 +1,10 @@
+
+10 4
+1e+09 1
+tempo $[ns]$
+$V_{out}$ $[V]$
+2
+$Q$
+$CLK$
+count-single
+count-single

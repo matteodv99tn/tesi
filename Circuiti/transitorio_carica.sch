@@ -16,7 +16,7 @@ only_toplevel=true
 format="tcleval( @value )"
 value="
 
-.lib /home/matteo/xschem_downloads/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/sky130.lib.spice ff
+.lib /home/matteo/xschem_downloads/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/sky130.lib.spice ss
 
 *.include /home/matteo/xschem_downloads/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/cells/nfet_01v8/sky130_fd_pr__nfet_01v8__tt.corner.spice
 
@@ -45,7 +45,7 @@ only_toplevel=true
 value="
 .ic v(vout)=1.8
 .control
-tran 0.01n 2n
+tran 0.01n 10n
 wrdata output.txt vout
 plot vout
 .endc
@@ -54,7 +54,7 @@ C {vsource.sym} 240 -160 0 0 {name=V1 value=1.8}
 C {gnd.sym} 240 -130 0 0 {name=l1 lab=GND}
 C {capa.sym} 460 -180 0 0 {name=C1
 m=1
-value=100f
+value=0.75p
 footprint=1206
 device="ceramic capacitor"}
 C {gnd.sym} 460 -130 0 0 {name=l3 lab=GND}
