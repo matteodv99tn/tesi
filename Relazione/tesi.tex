@@ -8,7 +8,8 @@
 \usepackage{graphicx}
 \usepackage[margin=1cm]{caption}
 \usepackage{hyperref}
-\usepackage[width=14.00cm, height=21.00cm]{geometry}
+\usepackage[left=4.5cm, width=14.00cm, height=21.00cm]{geometry}
+\usepackage{ragged2e}
 
 \usepackage{biblatex} 
 \addbibresource{bibliografia.bib} 
@@ -22,10 +23,51 @@
 
 
 \begin{document}
-	
 	\frontmatter
-	\maketitle
 	
+	\thispagestyle{empty}
+	\begin{center}
+		\includegraphics[width=6cm]{Immagini/logo}
+		
+		\vspace{2cm}
+		{\Large Corso di Laurea Triennale in \\ Ingegneria Industriale}
+		
+		\vspace{6mm}
+		
+		\rule{5cm}{0.5pt}	
+		\vspace{6mm}
+		
+		{\LARGE Prova Finale
+		
+		\vspace{5mm}
+		
+		Titolo
+		 }
+		
+	\end{center}
+	{ \large
+	\vspace{1cm} \noindent
+	Relatore:\\ Dalla Betta Gian-Franco
+	
+	\vspace{2cm} \noindent
+	Co-relatore: \\ Parmesan Luca
+	
+	\vspace{2cm} \noindent
+	Studente: \\
+	Dalle Vedove Matteo, 203063
+	
+	\vspace{2cm}
+	\begin{center}
+		Anno Accademico 2020-2021
+	\end{center}
+	
+	}
+
+	\chapter*{Ringraziamenti}
+	\begin{flushright}
+		\textit{Spazio dei ringraziamenti}
+	\end{flushright}
+
 	\input{Parti/introduzione}
 	\tableofcontents
 	
@@ -43,9 +85,19 @@
 	
 	\backmatter
 	
-	\chapter{Schematici}
+	% \chapter{Schematici}
 	
 	\chapter{Bibliografia e sitografia}
 	\printbibliography[heading=none]
+	
+	\noindent
+	Per la stesura del seguente documento sono stati consultati:
+	\begin{itemize}
+		\item \textit{CMOS Memory}, Giuseppe Ianaccone, corso di Electronic System (anno 2016), Università di Pisa, \url{http://www.iannaccone.org/ES2016/}
+	\end{itemize}
+	
+	
+	
+	
 		
 \end{document}

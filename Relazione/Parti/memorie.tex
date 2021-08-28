@@ -1,9 +1,9 @@
 \chapter{Circuiti logici asincroni e reti combinatorie}
 	
-	Avendo studiato le porte logiche in tecnologia c-mos è possibile iniziare a progettare i primi circuiti combinatori che compongono ogni dispositivo di elaborazione digitale, quali i vari tipi di \textit{latch} che compongono delle particolari strutture di registri quali il contatore binario, ma anche dei circuiti a valenza logica per operazioni binarie, quali il circuito sommatore e moltiplicatore.
+	Avendo studiato le porte logiche in tecnologia c-mos è possibile iniziare a progettare i primi circuiti logici con funzione di memoria che compongono ogni dispositivo di elaborazione digitale, quali i vari tipi di \textit{latch} che permettono di comporre delle particolari strutture di registri quali il contatore binario, ma anche dei circuiti a valenza logica per operazioni binarie, quali il circuito sommatore e moltiplicatore.
 	
 \section{SR latch}
-	Il \textit{latch set-reset}, abbreviato generalmente come \textit{latch SR}, è un circuito dalla bassa complessità che permette di memorizzare delle informazioni binarie. Tale circuito, come mostrato in figura \ref{fig:srl:schematico}, è realizzato mediante un'opportuna retroazione di porte logiche nor e la funzione realizzata dal circuito viene descritta dal nome stesso del dispositivo.
+	Il \textit{latch set-reset}, abbreviato generalmente come \textit{latch SR}, è un circuito logico asincrono dalla bassa complessità che permette di memorizzare delle informazioni binarie. Tale circuito, come mostrato in figura \ref{fig:srl:schematico}, è realizzato mediante un'opportuna retroazione di porte logiche nor e la funzione realizzata dal circuito viene descritta dal nome stesso del dispositivo.
 	
 	\begin{figure}[bht]
 		\centering
@@ -19,7 +19,7 @@
 		\label{fig:srl:schematico}
 	\end{figure}
 	
-	Costruendo la tabella \ref{tab:srl:tabellaverita} di verità di questo tipo di latch, è possibile osservare che l'uscita del circuito, generalmente indicata con $Q$, può essere impostata ad un valore alto (funzione di \textit{set}) mediante un ingresso alto al terminale $S$, mentre può essere ripristinata ad un valore basso (funzione di \textit{reset}) imponendo un segnale logico alto al terminale $R$.\\
+	Costruendo la tabella \ref{tab:srl:tabellaverita} di verità di questo tipo di latch è possibile descrivere l'uscita, generalmente indicata con $Q$, del dispositivo: nel caso venga imposto un segnale alto al terminale di $S$ allora anche l'uscita viene impostata (funzione di \textit{set}) alla tensione di alimentazione, mentre se viene imposto un segnale alto al terminale $R$ l'uscita viene ripristinata (funzione di \textit{reset}) alla tensione di massa. \\
 	Nel caso in cui nessuno dei due terminali d'ingresso si trovi allo stato alto, ossia non sia specificata nessuna tra le azioni di set o reset, allora la retroazione garantisce un'uscita che rimane invariata allo stato precedente del sistema. Condizione di ingresso invalida per il sistema è invece quella per cui entrambi gli ingressi $S$ ed $R$ si trovano ad uno stato logico alto: in questo caso sia l'uscita $Q$ che il suo negato $\overline Q$ risultano poste allo stato logico basso (non verificando la disuguaglianza $Q\neq \overline Q$). Partendo dal presupposto che tale condizione a livello pratico non dovrebbe mai avvenire, in quanto non ha senso impostare e ripristinare lo stesso segnale contemporaneamente, il circuito ritorna ad uno stato funzionale "stabile" e di corretto funzionamento non appena uno dei segnali viene riportato ad un valore logico basso.
 	
 	
@@ -46,14 +46,14 @@
 		\label{fig:srl:transitorio}
 	\end{figure}
 
-	In figura \ref{fig:srl:transitorio} è rappresentato l'andamento nel tempo delle uscite del circuito in funzione di impulsi in ingresso ai segnali di set e reset. Si può osservare che fino al primo impulso le uscite non sono ben definite, e questo è dovuto come detto in precedenza alla non inizializzazione del circuito. Nel caso ideale ottenuto mediante simulazione le uscite si trovano ad una tensione $V_{dd}/2$, tuttavia nel caso reale un'uscita prevarrebbe sull'altra per stato logico per via delle imperfezioni di realizzazione dei transistor (per esempio i rapporti $W/L$ o la conducibilità intrinseca potrebbero differire leggermente tra i transistor che compongono i gate, portando ad uno sbilanciamento del circuito).
+	In figura \ref{fig:srl:transitorio} è rappresentato l'andamento nel tempo delle uscite del circuito in funzione di impulsi in ingresso ai segnali di set e reset. Si può osservare che fino al primo impulso le uscite non sono ben definite, e questo è dovuto alla non inizializzazione del circuito. Nel caso ideale ottenuto mediante simulazione le uscite si trovano ad una tensione $V_{dd}/2$, tuttavia nel caso reale un'uscita prevarrebbe sull'altra per stato logico per via delle imperfezioni di realizzazione dei transistor (per esempio i rapporti $W/L$ o la conducibilità intrinseca potrebbero differire leggermente tra i transistor che compongono i gate, portando ad uno sbilanciamento del circuito), determinando un'uscita iniziale generalmente ignota.
 	
 	Va inoltre osservato che il segnale alto in ingresso deve rimanere in tale stato per un tempo necessario a garantire la rispettiva commutazione dell'uscita, pena la non corretta funzionalità del circuito stesso. Considerando la capacità di carico di $0.75pF$ il valore dell'impulso alto deve essere al minimo pari a $t_{min} = 7.28ns$. 
 
 \subsection*{SR latch con segnale di \textit{enable}}
 	Spesso i circuiti digitali sono predisposti con dei cosiddetti segnali di \textit{enable}, ossia di abilitazione degli ingressi. Questo significa che è possibile specificare al dispositivo quando lo stesso può leggere i segnali in ingresso oppure ignorarli.
 	
-	Sfruttando la convenzione per la quale il segnale di abilitazione è attivo quando il rispettivo stato logico è alto, è possibile creare un latch SR con funzione di enable anteponendo agli ingressi $S,R$ ai gate nor delle porte nand, come in figura \ref{fig:srl:schematico-enable}.
+	Sfruttando la convenzione per la quale il segnale di abilitazione è attivo quando il rispettivo stato logico è alto, è possibile creare un latch SR con funzione di enable anteponendo agli ingressi $S,R$ dei gate nor delle porte nand, come in figura \ref{fig:srl:schematico-enable}.
 	
 	\begin{figure}[bht]
 		\centering
@@ -81,7 +81,7 @@
 		\label{fig:srl:transitorio-enable}
 	\end{figure}
 	
-	Si osserva così che solo i primi impulsi di set e reset determinano una variazione dell'uscita del latch, in quanto sono gli unici segnali all'interno della fascia temperale del segnale di enable allo stato alto. Al tempo $t=65ns$ il segnale di abilitazione scende al valore logico basso, e dunque ignora il successivo segnale di reset (che pertanto non influenza l'uscita del latch).
+	Si osserva così che solo i primi impulsi di set e reset determinano una variazione dell'uscita del latch, in quanto sono gli unici segnali all'interno della fascia temporale del segnale di enable allo stato alto. Al tempo $t=65ns$ il segnale di abilitazione scende al valore logico basso, e dunque ignora il successivo segnale di reset (che pertanto non influenza l'uscita del latch).
 	
 \subsection*{SR flip-flop}
 	Una caratteristica fondamentale che caratterizza tutti i circuiti digitali per migliorarne l'efficienza e la stabilità è il sincronismo: in ogni circuito integrato infatti è possibile trovare un generatore di sincronismo che invia (ad una frequenza prestabilita) i segnali di \textit{clock}. Questi elementi, realizzati solitamente tramite circuiti astabili, generano di fatto delle onde quadre di periodo costante e pre-determinato (individuato dalla risonanza di elementi ceramici o dalle costanti di tempo di filtri RC) del quale è anche possibile stabilire il duty cycle, ossia la percentuale di tempo del segnale alto rispetto al periodo complessivo.
@@ -100,7 +100,7 @@
 	\end{figure}
 	
 	Un circuito che si può realizzare semplicemente mediante l'interconnessione di gate logici è l'edge detector mostrato in figura \ref{fig:srl:edgedetector}, composto da un invertitore logico e da una porta and.\\
-	Nonostante ci si aspetta che l'uscita del circuito sia sempre bassa (in quanto il prodotto logico tra un segnale e il suo negato è sempre basso), la presenza delle capacità presenti nei gate logici (e in questo caso è aggiunta anche una capacità supplementare di $1.5pF$) determinano un ritardo nella commutazione dell'invertitore. Considerando il fronte di salita del segnale di clock, gli ingressi al gate and saranno entrambi alti in quanto l'invertitore necessiterà di una determinata quantità di tempo per invertire la tensione alla sua uscita, dovendo anche scaricare la relativa capacità.
+	Nonostante ci si aspetta che l'uscita di tale circuito sia sempre bassa (in quanto il prodotto logico tra un segnale e il suo negato è sempre basso), la presenza delle capacità nei gate logici (e in questo caso è aggiunta anche una capacità supplementare di $1.5pF$) determinano un ritardo nella commutazione dell'invertitore. Considerando il fronte di salita del segnale di clock, gli ingressi al gate and saranno entrambi alti in quanto l'invertitore necessiterà di una determinata quantità di tempo per invertire la tensione alla sua uscita, dovendo anche scaricare la relativa capacità.
 	\begin{figure}[bht]
 		\centering
 		\input{Immagini/edge-detector-sim}
@@ -131,7 +131,7 @@
 	\end{figure}
 
 \section{JK flip-flop}
-	Un problema del latch SR e dei circuiti da esso derivati è l'invalidità dello stato con entrambi gli ingressi alti (come si osserva nell'ultima riga della tabella di verità \ref{tab:srl:tabellaverita} a pagina \pageref{tab:srl:tabellaverita}). Questo inconveniente rende il circuito instabile rispetto a ingressi contemporaneamente alti (in quanto non è possibile stabilire in maniera deterministica il funzionamento del circuito stesso) e limita l'applicabilità di questo sistema di memoria.
+	Un problema del latch SR e dei circuiti da esso derivati è l'invalidità dello stato con entrambi gli ingressi alti (come si osserva nell'ultima riga della tabella di verità \ref{tab:srl:tabellaverita} a pagina \pageref{tab:srl:tabellaverita}). Questo inconveniente rende il circuito instabile rispetto a ingressi contemporaneamente alti (in quanto non è possibile stabilire in maniera deterministica il funzionamento del circuito stesso nel momento in cui verranno tolti gli ingressi) e limita l'applicabilità di questo sistema di memoria.
 	
 	Per risolvere questo problema è stato inventato il \textit{flip-flop JK} i cui ingressi sono comunemente indicati dalle lettere J (associato alla funzione set) e K (associato alla funzione di reset). Come indicato nella tabella di verità \ref{tab:jkl:tabellaverita}, il comportamento generale del circuito rimane invariato se non nel caso di presenza di due ingressi alti contemporaneamente, momento nel quale le uscite $Q$ e $\overline Q$ commutano rispettivamente i loro stati da alto a basso e viceversa. 
 	
@@ -148,7 +148,7 @@
 		\label{tab:jkl:tabellaverita}
 	\end{table}
 	
-	Tale effetto viene ottenuto retroazionando l'uscita dei gate nor con un terzo ingresso dagli and di abilitazione del segnale (oltre che alla retroazione al gate nor stesso), come si può osservare in figura \ref{fig:jkff:schema}
+	Tale effetto viene ottenuto retroazionando l'uscita dei gate nor con un terzo ingresso agli and di abilitazione del segnale (oltre che alla retroazione al gate nor stesso), come si può osservare in figura \ref{fig:jkff:schema}
 	
 	\begin{figure}[bht]
 		\centering
@@ -158,7 +158,7 @@
 	\end{figure}
 	Tale realizzazione permette infatti di eliminare la possibilità di tensione alta agli ingressi di set e reset del latch SR che lo compone, ma solamente l'azione complementare all'uscita può essere realizzata. Per esempio se l'uscita si trovasse allo stato logico alto, solamente l'ingresso di reset potrà essere potrà essere attivato per commutare l'uscita.
 	
-	Simulando il circuito nel dominio del tempo è possibile osservare il funzionamento del flip-flop, osservando che l'implementazione (per come attualmente realizzata) presenta un problema critico nella commutazione.
+	Simulando il circuito nel dominio del tempo è possibile verificare il funzionamento del flip-flop, osservando che l'implementazione (per come attualmente realizzata) presenta un problema critico nella commutazione.
 	
 	\begin{figure}[bht]
 		\centering
@@ -167,9 +167,9 @@
 		\label{fig:jkff:sim-instabile}
 	\end{figure}
 	
-	Il flip-flop JK allo stato attuale presenta dei problema nella corretta commutazione dei segnali, come si può osservare nel grafico in figura \ref{fig:jkff:sim-instabile}, dove in alcune commutazioni del segnale in uscita il transitorio non segue una funzione monotona, ma tende a oscillare per stabilizzarsi ad uno stato logico alto o basso (non necessariamente corretto rispetto all'ingresso del circuito) solamente quando il circuito di edge detectinte determinasse la fine del segnale di abilitazione.
+	Rispetto ai risultati mostrati in figura \ref{fig:jkff:sim-instabile} per alcune commutazioni del segnale in uscita il transitorio non segue una funzione monotona, ma tende a oscillare per stabilizzarsi ad uno stato logico alto o basso (non necessariamente corretto rispetto all'ingresso del circuito) solamente quando il circuito di edge detection termina il suo segnale di abilitazione alto.
 	
-	Questo fenomeno è dovuto al cosiddetto \textit{gate racing}, dovuto al fatto che i segnali in uscita $Q$ e $\overline Q$ sono retroazionati alla porta and di abilitazione dei segnali in ingresso: questo porta ad un rincorrersi delle uscite retroazionate che determinano l'instabilità critica del circuito per come così realizzato.
+	Questo fenomeno prende il nome di \textit{gate racing} ed dovuto al fatto che i segnali in uscita $Q$ e $\overline Q$ sono retroazionati alla porta and di abilitazione dei segnali in ingresso: questo porta ad un rincorrersi delle uscite retroazionate che determinano l'instabilità critica del circuito per come così realizzato.
 	
 \subsection*{JK flip-flop master-slave}
 	
@@ -194,7 +194,7 @@
 		\label{fig:jkff:sim-masterslave}
 	\end{figure}
 	
-	Mediante questa implementazione circuitale, il cui risultato della simulazione è mostrato in figura \ref{fig:jkff:sim-masterslave}, è possibile osservare come il fenomeno del gate racing è sparito e si verifica la perfetta funzionalità del circuito.
+	Mediante questa implementazione circuitale, il cui risultato della simulazione è mostrato in figura \ref{fig:jkff:sim-masterslave}, è possibile osservare come il fenomeno del gate racing è sparito e si verifica la perfetta funzionalità del circuito, a discapito di un piccolo ritardo di propagazione del segnale in ingresso.
 	
 \section{Contatore binario}
 	Dal punto di vista applicativo di fondamentale importanza è costruire un dispositivo in grado di contare il numero di impulsi trascorsi in un determinato intervallo di tempo. Questo tipo di componente viene infatti spesso utilizzato in convertitori di segnale da analogico a digitale ad elevata risoluzione in bit, ma anche nel registro della memoria cache denominato \textit{program counter}, il cui ruolo è quello di individuare le istruzioni da far eseguire al calcolatore.
@@ -211,7 +211,7 @@
 	
 	In riferimento a questa simulazione si osserva che il segnale in ingresso, di periodo $50ns$, presenta una frequenza doppia rispetto all'uscita del flip-flop JK master-slave nei quali il periodo è infatti di $100ns$.
 	
-	Collegando in serie più flip-flop, collegando l'uscita $Q$ del dispositivo con l'ingresso di clock del dispositivo immediatamente successivo, è possibile creare dunque un contatore binario.
+	Collegando in serie più flip-flop connettendo l'uscita $Q$ del dispositivo con l'ingresso di clock del dispositivo immediatamente successivo, è possibile creare dunque un contatore binario che sfrutta per l'appunto la funzionalità di divisione binaria di clock del latch master-slave.
 	
 	\begin{figure}[bht]
 		\centering
@@ -253,8 +253,8 @@
 	
 	\paragraph{Funzione di abilitazione} La funzione di abilitazione del conteggio è semplice da realizzare, e si basa sul filtrare il segnale di clock in ingresso mediante una porta logica and il cui secondo input è il segnale di abilitazione. Quando $EN$ si trova allo stato alto allora gli impulsi di clock potranno essere correttamente inviati al circuito di edge detection, mentre se $EN$ fosse basso nessun impulso verrebbe mandato come ingresso al contatore.
 	
-	\paragraph{Funzione di reset} La funzione di reset è più complessa ed è costituita dalle connessioni in blu in figura \ref{fig:count:resen}. Tale comportamento desiderato è ottenuto mediante due passaggi: quando il segnale di reset assume uno stato logico alto tutti i latch vengono resettati (tranne il primo latch che per riuscire a rilevare correttamente il primo impulso deve essere impostato per avere un'uscita alta) mediante il gate nand di ingressi il segnale $RST$ e la tensione di alimentazione.\\
-	Il secondo step è quello di abilitare gli ingressi di tutti i latch JK: in questo modo ogni primo stadio dei latch del contatore verrà inizializzato al valore iniziale prestabilito. Nell'immeddiato l'uscita di reset non risulta evidente, tuttavia appena il segnale $RST$ torna allo stato logico basso il latch slave invierà il segnale al master effettuando di fatto il ripristino ad uno stato noto del circuito.
+	\paragraph{Funzione di reset} La funzione di reset è più complessa ed è costituita dalle connessioni in blu in figura \ref{fig:count:resen}. Tale comportamento desiderato è ottenuto mediante due passaggi: quando il segnale di reset assume uno stato logico alto tutti i latch vengono resettati (tranne il primo latch che per riuscire a rilevare correttamente il primo impulso deve essere impostato per avere un'uscita alta) mediante il gate nand (sfruttandone la sua tabella di verità) i cui ingressi sono il segnale $RST$ e la tensione di alimentazione.\\
+	Il secondo step è quello di abilitare gli ingressi di tutti i latch JK: in questo modo ogni primo stadio dei latch del contatore verrà inizializzato al valore iniziale prestabilito. Nell'immeddiato l'uscita di reset non risulta evidente, tuttavia appena il segnale $RST$ torna allo stato logico basso il latch master invierà il segnale allo slave effettuando di fatto il ripristino ad uno stato noto del circuito.
 	
 	
 	\begin{figure}[p]
@@ -271,7 +271,7 @@
 \subsection*{Half adder}
 	Un circuito che permette di effettuare la somma binaria di due numeri è composto da una serie di moduli elementari che permettono di effettuare la somma bit-a-bit. Per questo è importante studiare le varianti di questa sezioni circuitali per comprendere il funzionamento del circuito che dovranno comporre.
 	
-	Il primo elemento che si può studiare è l'\textit{half adder} (mezzo sommatore) è un elemento che viene utilizzato per determinare la somma di due bit. Tale circuito deve dunque prevedere necessariamente due ingressi $A$ e $B$, associati ai valori logici da sommare, mentre le uscite sono 2: il risultato $R$ della somma binario e l'eventuale riporto $C$ (dall'inglese \textit{carry}).
+	Il primo elemento che si può studiare è l'\textit{half adder} (mezzo sommatore), un elemento che viene utilizzato per determinare la somma di due bit. Tale circuito deve dunque prevedere necessariamente due ingressi $A$ e $B$, associati ai valori logici da sommare, mentre le uscite sono 2: il risultato $R$ della somma binaria e l'eventuale riporto $C$ (dall'inglese \textit{carry}).
 	
 	La somma di due bit in un sistema binario può essere velocemente analizzata tramite la realizzazione della tabella di verità \ref{tab:ha:tabella}, dove la terza colonna $R_{10}$ rappresenta il risultato in cifra decimale.
 	
@@ -288,9 +288,9 @@
 		\label{tab:ha:tabella}
 	\end{table}
 	
-	Dalla tabella di verità che deve essere verificata dal circuito del mezzo sommatore, è evidente osservare come il carry $C$ sia determinato dal prodotto logico degli ingressi binari, mentre $R$ sia ottenuto come or esclusivo degli stessi. Questo permette di implementare circuitalmente le porte logiche come in figura \ref{fig:ha:sch}.
+	Dalla tabella di verità che deve essere verificata dal circuito del mezzo sommatore è evidente osservare come il carry $C$ sia determinato dal prodotto logico degli ingressi binari, mentre $R$ sia ottenuto come or esclusivo degli stessi. Questo permette di implementare circuitalmente le porte logiche come in figura \ref{fig:ha:sch}.
 	
-	\begin{figure}[bht]
+	\begin{figure}[H]
 		\centering
 		\begin{subfigure}{0.48\linewidth}
 			\centering
@@ -302,7 +302,7 @@
 			\includegraphics[width=5cm]{Immagini/half-adder-sch}
 			\caption{}
 		\end{subfigure}
-		\caption{rappresentazione semplificata del blocco half adder (a) e relativa implementazione mediante gate logici (b).}
+		\caption{rappresentazione simbolica del blocco half adder (a) e relativa implementazione mediante gate logici (b).}
 		\label{fig:ha:sch}
 	\end{figure}
 	
@@ -325,7 +325,7 @@
 	\begin{table}[bht]
 		\centering
 		\begin{tabular}{c c c | c | c c }
-			$A$ & $B$ & $C$ & $R_{10}$ & $C$ & $R$ \\ \hline
+			$A$ & $B$ & $C_{in}$ & $R_{10}$ & $C_{out}$ & $R$ \\ \hline
 			0 & 0 & 0 & 0 & 0 & 0 \\	
 			0 & 1 & 0 & 1 & 0 & 1 \\	
 			1 & 0 & 0 & 1 & 0 & 1 \\
@@ -339,7 +339,7 @@
 		\label{tab:fa:tabella}
 	\end{table}
 	
-	A questo punto è possibile costruire un circuito, mediante l'utilizzo di porte logiche, in grado di realizzare tale tabella di verità. L'implementazione realizzata è mostrata in figura \ref{fig:fa:sch} e rispetto ad essa è possibile trarre delle conclusioni sul funzionamento del circuito.
+	A questo punto è possibile costruire un circuito, mediante l'utilizzo di porte logiche, in grado di realizzare tale tabella di verità la cui implementazione logica è mostrata in figura \ref{fig:fa:sch} e rispetto ad essa è possibile trarre delle conclusioni sul funzionamento del circuito.
 	
 	\begin{figure}[bht]
 		\centering
@@ -353,7 +353,7 @@
 			\includegraphics[width=\linewidth]{Immagini/full-adder}
 			\caption{}
 		\end{subfigure}
-		\caption{rappresentazione semplificata del blocco half adder (a) e relativa implementazione mediante gate logici (b).}
+		\caption{rappresentazione simbolica del blocco half adder (a) e relativa implementazione mediante gate logici (b).}
 		\label{fig:fa:sch}
 	\end{figure}
 	
@@ -374,7 +374,7 @@
 	
 	In questo caso i segnali di input sono i numeri binari $A$ e $B$, oltre ad un eventuale riporto in ingresso $C_{in}$ (che può essere utilizzato per fare la somma di numeri a più bit rispetto all'architettura del sistema o può essere utilizzato rispetto alla codifica \textit{1 complementare} dei numeri binari) mentre l'uscita è determinata dai bit del risultato $R$ e dal riporto in uscita $C_{out}$. Come nel caso del contatore, il suffisso numerico 1 indica il bit meno significativo, mentre 4 il bit più significativo.
 	
-	Effettuare una simulazione completa di tutte le possibili combinazioni di ingresso (che sono in totale $16^2=256$) diventa praticamente difficile da effettuare ma soprattutto da visualizzare, per questo all'interno del documento.
+	Effettuare una simulazione completa di tutte le possibili combinazioni di ingresso (che sono in totale $16^2=256$) diventa praticamente difficile da effettuare ma soprattutto da visualizzare, per questo all'interno del documento viene mostrata una casistica rappresentativa ottenuta fissando un addendo e facendo variare l'altro.
 
 	\begin{figure}[bht]
 		\centering
@@ -383,7 +383,7 @@
 		\label{fig:add:sim}
 	\end{figure}
 	
-	Considerando la simulazione in figura \ref{fig:add:sim} dove si suppone un ingresso costante (in questo caso $B=3_{10}=0011_2$) è possibile valutare la risposta del circuito per le 16 combinazioni in ingresso del segnale $A$. Per esempio considerando l'intervallo di tempo di $300-350ns$ associato ad un ingresso $A=6_{10}=0110_2$, si osserva che il risultato della somma è dato dai bit
+	Considerando la simulazione in figura \ref{fig:add:sim} dove si suppone un ingresso costante (in questo caso $B=3_{10}=0011_2$) è possibile valutare la risposta del circuito per le 16 combinazioni in ingresso del segnale $A$ considerando che lo stesso aumenta di un'unità ogni $50ns$. Per esempio considerando l'intervallo di tempo di $300-350ns$ associato ad un ingresso $A=6_{10}=0110_2$, si osserva che il risultato della somma è dato dai bit
 	\[ R = R_4R_3R_2R_1 = 1001_2 = 9_{10} \qquad, \qquad C_{out} = 0 \]
 	Si verifica dunque il funzionamento del circuito. Si osserva inoltre che per i tempi $t > 650ns$ ($A\geq 13_{10}$) il riporto in uscita $C_{out}$ commuta allo stato logico alto: questo comportamento risulta essere corretto in quanto numeri a 4 bit possono rappresentare solamente 16 numeri decimali (da 0 a 15). Le uscite per cui $A\geq 13_{10}$ (essendo $B=3_{10}$) determinano una somma che è fuori dal range di rappresentazione a 4 bit, per questo viene posto ad alto il riporto in uscita (che si può considerare come il quinto bit più significativo del risultato) e i bit di risultato $R_i$ lavorano come di consueto. Utilizzando $C_{out}$ come quinto bit significativo è possibile verificare anche le somme per $A\geq 13_{10}$: considerando come esempio l'ultimo ingresso $A = 15_{10}=1111_2$ (per $t\in [750,800]ns$) l'uscita del circuito è data dall'espressione
 	\[ R = C_{out}R_4R_3R_2R_1 = 10010_2 = 18_{10} \]
@@ -405,7 +405,7 @@
 	\end{tabular} 
 	\end{center}
 	
-	I vari termini ottenuti nelle somme parziali sono determinati direttamente dal prodotto logico di due bit, e dunque possono essere determinati (a livello circuitale) velocemente mediante un gate and. A questo punto è invece necessario effettuare la somma binaria delle varie somme parziali, considerando che le stesse devono essere \textit{spostate a sinistra} di un'unità ad ogni iterazione (come viene effettuato normalmente nel prodotto decimale ed è rappresentato nella tabella riassuntiva).
+	I vari termini ottenuti nelle somme parziali sono determinati direttamente dal prodotto logico di due bit, e dunque possono essere determinati (a livello circuitale) velocemente mediante gate and. A questo punto è invece necessario effettuare la somma binaria delle varie somme parziali, considerando che le stesse devono essere \textit{spostate a sinistra} di un'unità ad ogni iterazione (come viene effettuato normalmente nel prodotto decimale ed è rappresentato nella tabella riassuntiva).
 	
 	\begin{figure}[bht]
 		\centering
@@ -418,7 +418,7 @@
 	
 	I problemi legati ad un'implementazione in tecnologia c-mos, come così mostrata, è che richiede un'elevata quantità di risorse hardware intese come numero di transistor e dunque spazio su chip. Considerando infatti un moltiplicando di $n$ bit e un moltiplicatore di $m$ bit, allora il numero di linee di circuiti di addizione è pari a $m-1$ (con $n$ full/half adder l'una) e l'uscita può richiedere l'utilizzo fino a $n+m$ bit. Lo schematico risulta essere "compatto" per valori di $m,n$ sufficientemente piccoli (in questo caso $m=4,n=3$), tuttavia in sistemi reali dove può essere necessario effettuare operazioni tra dati a $16$ bit o più, l'impatto risulta essere importante.
 	
-	\paragraph{Simulazione} Come nel caso del circuito sommatore, testare esaustivamente tutte le possibili combinazioni d'ingresso risulta complesso, tuttavia è possibile mostrare la correttezza di funzionamento del circuito fissando un parametro e facendo variare l'altro termine. In figura \ref{fig:molt:sim} è mostrata una simulazione nel dominio del tempo fissando a $5_{10}$ il moltiplicando e facendo variare da $0$ a $15$ il moltiplicatore.
+	\paragraph{Simulazione} Come nel caso del circuito sommatore, testare esaustivamente tutte le possibili combinazioni d'ingresso risulta complesso, tuttavia è possibile mostrare la correttezza di funzionamento del circuito fissando un parametro e facendo variare l'altro termine. In figura \ref{fig:molt:sim} è mostrata una simulazione nel dominio del tempo fissando a $5_{10}$ il moltiplicando e facendo variare da $0$ a $7$ il moltiplicatore.
 	
 	\begin{figure}[bht]
 		\centering
