@@ -420,13 +420,18 @@
 	
 	\paragraph{Simulazione} Come nel caso del circuito sommatore, testare esaustivamente tutte le possibili combinazioni d'ingresso risulta complesso, tuttavia è possibile mostrare la correttezza di funzionamento del circuito fissando un parametro e facendo variare l'altro termine. In figura \ref{fig:molt:sim} è mostrata una simulazione nel dominio del tempo fissando a $5_{10}$ il moltiplicando e facendo variare da $0$ a $7$ il moltiplicatore.
 	
-	\begin{figure}[bht]
+	\begin{figure}[p]
 		\centering
 		\input{Immagini/mult-sim}
 		\caption{bit in uscita ottenuti mediante la moltiplicazione di un moltiplicando costante pari a $0101_2=5_{10}$ e un moltiplicatore che incrementa ogni $100ns$ di una unità dal valore $0000_2=0_{10}$ al valore $1111_2=15_{10}$. Tutte le uscite sono collegate a massa mediante una capacità di carico di $0.75pF$. Le tensioni sono espresse in volt. }
 		\label{fig:molt:sim}
 	\end{figure}
 	
+	\paragraph{Glitch} Nella pratica i segnali analogici non si propagano istantaneamente e seguendo una legge prettamente analitica, ma prevedono un contributo stocastico e dunque non prevedibile a priori. La realizzazione pratica, come già affermato, comporta inevitabilmente l'introduzione di capacità parassite spesso non quantificabili, introducendo delle inerzie alla trasmissione del segnale.
+	
+	Sono proprio questi fenomeni (che il pdk tenta di modellare) che danno origine ai cosiddetti \textit{glitch}, ossia delle corse critiche che portano ad un movimento temporaneo dell'uscita rispetto al valore desiderato per via del ritardo degli ingressi. Un esempio di questo fenomeno è ben visibile al tempo $t=400ns$ per i bit $R_3$ ed $R_6$ in figura \ref{fig:molt:sim} (ma in generale ogni commutazione, anche nei circuiti precedenti, è soggetta a questo tipo di problema), dove il ritardo nella propagazione a cascata dei segnali attraverso i vari gate introduce dei ritardi per i quali l'uscita tende a commutare nonostante debba rimanere costante.
+	
+	Questi fenomeni, inevitabili nella pratica, sono tendenzialmente di durata irrisoria (rispetto al caso appena indicato il tempo di ripristino è inferiore a $12ns$): per questo nei circuiti ad applicazione digitale non si considera mai come ingresso il segnale al tempo di clock (dove si ha la trasmissione delle uscite ai vari circuiti a valle), ma si aspetta un tempo consono per esaurire i transitori dei circuiti e gli eventuali glitch.
 	
 	
 	
